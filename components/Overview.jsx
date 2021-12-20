@@ -3,7 +3,7 @@ import React from "react";
 
 
 import InfoIcon from './InfoIcon';
-import {cookieCutter} from 'cookie-cutter'
+import Cookies from 'js-cookie';
 
     
 
@@ -15,10 +15,10 @@ import {cookieCutter} from 'cookie-cutter'
 // alert(info)
 // alert(cookieCutter.get('Locations'))
 
-var Locations = JSON.parse(cookieCutter.get('Locations'));
-var MaterialTypes = JSON.parse(cookieCutter.get('MaterialTypes'));
-var IdentifierTypes = JSON.parse(cookieCutter.get('IdentifierTypes'));
-var Processes = JSON.parse(cookieCutter.get('Processes'));
+var Locations = JSON.parse(Cookies.get('Locations'));
+var MaterialTypes = JSON.parse(Cookies.get('MaterialTypes'));
+var IdentifierTypes = JSON.parse(Cookies.get('IdentifierTypes'));
+var Processes = JSON.parse(Cookies.get('Processes'));
 
 
     return (
