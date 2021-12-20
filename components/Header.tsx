@@ -37,12 +37,12 @@ export default function Header() {
                         overflow: 'hidden',
                       }}
                     >
-                      <Image
+                      {/* <Image
                         src={user.avatarUrl}
                         width={32}
                         height={32}
                         alt=""
-                      />
+                      /> */}
                     </span>
                     Profile (Static Generation, recommended)
                   </a>

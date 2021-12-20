@@ -16,6 +16,6 @@
     "baseUrl": ".",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js", "pages/search.jsx", "pages/login.jsx", "pages/api/search_bed.js", "components/Overview.jsx"],
   "exclude": ["node_modules"]
 }

@@ -1,59 +1,53 @@
 import Layout from 'components/Layout'
 import Image from 'next/image'
+import React from "react";
+import {SearchIcon, CameraIcon} from '@heroicons/react/outline'
+import Link from 'next/link'
+import useUser from 'lib/useUser';
+// import '@headlessui/react'
 
 export default function Home() {
+  const { user } = useUser({
+    redirectTo: '/login',
+  })
   return (
     <Layout>
-      <h1>
-        <span style={{ marginRight: '.3em', verticalAlign: 'middle' }}>
-          <Image src="/GitHub-Mark-32px.png" width="32" height="32" alt="" />
-        </span>
-        <a href="https://github.com/vvo/iron-session">iron-session</a> -
-        Authentication example
-      </h1>
+      <div className="md:px-48 mt-5 md:mt-12 mb-5 px-5 ">
+    <h1 className="text-3xl font-bold leading-normal mb-6">Welkom{user && <span className='font-light'>, {user.login}</span>}</h1>
 
-      <p>
-        This example creates an authentication system that uses a{' '}
-        <b>signed and encrypted cookie to store session data</b>.
-      </p>
+    <div className="grid grid-cols-2 space-x-4">
 
-      <p>
-        It uses current best practices as for authentication in the Next.js
-        ecosystem:
-        <br />
-        1. <b>no `getInitialProps`</b> to ensure every page is static
-        <br />
-        2. <b>`useUser` hook</b> together with `
-        <a href="https://swr.now.sh/">swr`</a> for data fetching
-      </p>
 
-      <h2>Features</h2>
 
-      <ul>
-        <li>Logged in status synchronized between browser windows/tabs</li>
-        <li>Layout based on logged in status</li>
-        <li>All pages are static</li>
-        <li>Session data is signed and encrypted in a cookie</li>
-      </ul>
+         <Link href="/scan">
+        <div className="max-w-sm rounded-sm border border-gray-200 bg-white group hover:bg-red-500 shadow-lg rounded-xl pt-6 pb-2 transition duration-300 ease-in-out">
+            <div className="px-8 pb-4 ">
+                <i className="text-gray-800 pt-6 mt-2  text-xl text-center font-bold group-hover:text-white transition duration-300 ease-in-out">
+                    <CameraIcon
+                        className="text-center w-12 text-red-500 group-hover:text-white transition duration-300 ease-in-out mx-auhref"/>
+                </i>
+                <h2 className="text-gray-800 pt-4 text-md text-center font-bold group-hover:text-white transition duration-300 ease-in-out">Scannen</h2>
+            </div>
+        </div>
+         </Link>
 
-      <h2>Steps to test the functionality:</h2>
+        <Link href="/search">
+        <div className="max-w-sm  rounded-sm border border-gray-200 bg-white group hover:bg-red-500 shadow-lg rounded-xl pt-6 pb-2 transition duration-300 ease-in-out">
+            <div className="px-8 pb-4 ">
+                <i className="text-gray-800 pt-6 mt-2  text-xl text-center font-bold group-hover:text-white transition duration-300 ease-in-out">
+                    <SearchIcon
+                        className="text-center w-12 text-red-500 group-hover:text-white transition duration-300 ease-in-out mx-auhref"/>
+                </i>
+                <h2 className="text-gray-800 pt-4 text-md text-center font-bold group-hover:text-white transition duration-300 ease-in-out">Zoeken</h2>
+            </div>
+        </div>
+        </Link>
 
-      <ol>
-        <li>Click login and enter your GitHub username.</li>
-        <li>
-          Click home and click profile again, notice how your session is being
-          used through a token stored in a cookie.
-        </li>
-        <li>
-          Click logout and try to go to profile again. You&apos;ll get
-          redirected to the `/login` route.
-        </li>
-      </ol>
-      <style jsx>{`
-        li {
-          margin-bottom: 0.5rem;
-        }
-      `}</style>
+
+    </div>
+
+
+    </div>
     </Layout>
   )
 }
