@@ -14,11 +14,11 @@ export default async function handler(req, resp) {
         
 
     const apiUrl = "https://asz-assets.test.improvement-it.nl/connect/pda/get-item-info";
-    var body = {
-        "Name": String("88366"),
-        "IMEI": "02:00:00:00:00:00",
-        "ConnectLogID": "8aacae2f-c0d0-49bf-8838-c78bc46f88d6"
-    };
+    // var body = {
+    //     "Name": String(ultimoNumber),
+    //     "IMEI": "02:00:00:00:00:00",
+    //     "ConnectLogID": "8aacae2f-c0d0-49bf-8838-c78bc46f88d6"
+    // };
 
     //   const requestOptions = {
     //       method: 'POST',
@@ -41,14 +41,22 @@ export default async function handler(req, resp) {
         headers: {
         'Content-Type': 'application/json;charset=UTF-8', "Cookie": String("session=" + sessionid), "User-Agent": "PDA"
 
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
+    },
+    // 'Content-Type': 'application/x-www-form-urlencoded',
         // redirect: 'follow', // manual, *follow, error
         // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        body: JSON.stringify(body) // body data type must match "Content-Type" header
+        body: JSON.stringify({
+            "Name": String(ultimoNumber),
+            "IMEI": "02:00:00:00:00:00",
+            "ConnectLogID": "8aacae2f-c0d0-49bf-8838-c78bc46f88d6"
+        }) // body data type must match "Content-Type" header
         });
 
-
+        console.log(JSON.stringify({
+            "Name": String(ultimoNumber),
+            "IMEI": "02:00:00:00:00:00",
+            "ConnectLogID": "8aacae2f-c0d0-49bf-8838-c78bc46f88d6"
+        }))
         var response = await res.json()
         console.log(JSON.stringify(response));      
         resp.status(200).json(response);
