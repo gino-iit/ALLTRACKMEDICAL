@@ -41,7 +41,7 @@ export default function Home() {
         
           
             {/* Current: "bg-gray-200 text-gray-900", Default: "text-gray-600 hover:bg-gray-50 hover:text-gray-900" */}
-            <a href="/scan" className="border border-gray-200 group text-gray-900 flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-red-500 shadow-md hover:border-red-500 transition duration-300 ease-in-out" aria-current="page">
+            <a href="/scan" className="border border-gray-200 group text-gray-900 flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-red-500 shadow-sm hover:border-red-500 transition duration-300 ease-in-out" aria-current="page">
               {/* Current: "text-gray-500", Default: "text-gray-400" */}
               <svg className="group-hover:text-white transition duration-300 ease-in-out text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6" data-todo-x-description="Heroicon name: home" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <CameraIcon/>
@@ -58,7 +58,7 @@ export default function Home() {
 
 
 
-              <a href="/search" className="border border-gray-200 group text-gray-900 flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-red-500 shadow-md hover:border-red-500 transition duration-300 ease-in-out" aria-current="page">
+              <a href="/search" className="border border-gray-200 group text-gray-900 flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-red-500 shadow-sm hover:border-red-500 transition duration-300 ease-in-out" aria-current="page">
               {/* Current: "text-gray-500", Default: "text-gray-400" */}
               <svg className="group-hover:text-white transition duration-300 ease-in-out text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6" data-todo-x-description="Heroicon name: home" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <SearchIcon/>
