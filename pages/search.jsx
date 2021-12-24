@@ -137,23 +137,31 @@ export default function Search() {
     // }
 
     const submitContact = async (event) => {
+        setEmptyResult(false);
+
         event.preventDefault();
         var result = JSON.parse(await Bed(event.target.ultimo.value, user.sessionID)).data
 
         if (result["___system___"].code === 0){
-            const resultJson = result.data;
-            var details = {
-                id: resultJson.Name,
-                Name: resultJson.Name,
-                LocationID: resultJson.LocationID,
-                MaterialTypeID: resultJson.MaterialTypeID,
-                tag: resultJson.Identifiers[0].Name
-                }
-                // alert(result.Name)              
-                // alert(JSON.stringify(result))              
-                // alert("details")              
-                setSearchResult(result)
-            setResultDetails(JSON.stringify(details))
+            if (result.data === null){
+                setEmptyResult(true);
+                alert('Er is helaas niets gevonden...');    
+            } else {
+                const resultJson = result.data;
+                var details = {
+                    id: resultJson.Name,
+                    Name: resultJson.Name,
+                    LocationID: resultJson.LocationID,
+                    MaterialTypeID: resultJson.MaterialTypeID,
+                    tag: resultJson.Identifiers[0].Name
+                    }
+                    // alert(result.Name)              
+                    // alert(JSON.stringify(result))              
+                    // alert("details")              
+                    setSearchResult(result)
+                setResultDetails(JSON.stringify(details))
+            }
+            
         } else {
             setEmptyResult(true);
             alert('Er is helaas niets gevonden...');

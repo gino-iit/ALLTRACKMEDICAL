@@ -47,8 +47,8 @@ export default async function handler(req, resp) {
         // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         body: JSON.stringify({
             "Name": String(ultimoNumber),
-            "IMEI": "02:00:00:00:00:00",
-            "ConnectLogID": "8aacae2f-c0d0-49bf-8838-c78bc46f88d6"
+            "IMEI": "02:00:00:00:00:00"
+            // "ConnectLogID": "8aacae2f-c0d0-49bf-8838-c78bc46f88d6"
         }) // body data type must match "Content-Type" header
         });
 
