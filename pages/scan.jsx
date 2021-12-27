@@ -1,6 +1,16 @@
+import dynamic from 'next/dynamic'
 
 
-import React, {useState} from 'react';
+
+
+
+
+
+
+
+
+
+import React, {useState, Component, useEffect} from 'react';
 import Lottie from 'react-lottie';
 import animationData from '../lottie/empty.json';
 import Alert from "../components/Alert";
@@ -18,7 +28,8 @@ import axios from 'axios'
 import fetchJson, { FetchError } from 'lib/fetchJson';
 import user from './api/user';
 // import Table from "./table";
-
+import { Html5QrcodeScanner } from "html5-qrcode";
+// import Blob from 'blob'
 
 function deleteAllCookies() {
     var cookies = document.cookie.split(";");
@@ -44,6 +55,11 @@ async function Bed(ultimo, sessionid) {
 
 
 
+
+
+
+
+
 export default function Search() {
     const router = useRouter()
 
@@ -53,10 +69,8 @@ export default function Search() {
 
     // var details: { name: string; title: string; department: string; role: string; tag: string; }[];
 
-    const { user } = useUser({
-        redirectTo: '/login',
-      })
- 
+
+    
 
     const [searchField, setSearchField] = useState("");
     const [searchShow, setSearchShow] = useState(false);
@@ -74,7 +88,58 @@ export default function Search() {
         }}
 
 
+        const qrcodeRegionId = "html5qr-code-full-region";
 
+
+
+        
+        // useEffect(() => {
+            
+
+
+
+//             const video = document.querySelector('#video')
+//             // Check if device has camera
+//             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+//               // Use video without audio
+//               const constraints = { 
+//                 video: true,
+//                 audio: false
+//               }
+              
+//               // Start video stream
+//               navigator.mediaDevices.getUserMedia(constraints).then(stream => video.srcObject = stream);
+//               // Create new barcode detector
+// const barcodeDetector = new BarcodeDetector({ formats: ['qr_code'] });
+// let formats;
+// // Save all formats to formats var 
+// BarcodeDetector.getSupportedFormats().then(arr => formats = arr);
+// Create new barcode detector with all supported formats
+// const barcodeDetector = new BarcodeDetector({ formats });
+// const barcodeDetector = new BarcodeDetector({ formats: ['qr_code'] });
+
+// Detect code function 
+// const detectCode = () => {
+//   // Start detecting codes on to the video element
+//   barcodeDetector.detect(video).then(codes => {
+//     // If no codes exit function
+//     if (codes.length === 0) return;
+    
+//     for (const barcode of codes)  {
+//       // Log the barcode to the console
+//       console.log(barcode)
+//     }
+//   }).catch(err => {
+//     // Log an error if one happens
+//     console.error(err);
+//   })
+// }
+// // Run detect code function every 100 milliseconds
+// setInterval(detectCode, 100);
+
+//             }
+//         })
+        
     // const filteredPersons = details.filter(
     //     person => {
     //         return (
@@ -190,9 +255,37 @@ export default function Search() {
         }
         // alert(`So your name is ${event.target.ultimo.value}?`);
     };
+    // const qrScanner = new QrScanner("#video", result => console.log('decoded qr code:', result));
+    // qrScanner.start();
+
+    // var onNewScanResult = onNewScanResult.bind(this);
+
+    var resultContainer = () => document.getElementById('qr-reader-results');
+    var lastResult, countResults = 0;
     
+    function onScanSuccess(decodedText, decodedResult) {
+        if (decodedText !== lastResult) {
+            ++countResults;
+            lastResult = decodedText;
+            // Handle on success condition with the decoded message.
+            console.log(`Scan result ${decodedText}`, decodedResult);
+        }
+    }
+    
+    
+    var html5QrcodeScanner = () => new Html5QrcodeScanner(
+        "qr-reader", { fps: 250, qrbox: 250 });
+        () => html5QrcodeScanner.render(onScanSuccess);
+
     return (
+
         <Layout>
+<div className="px-64">
+<Scan />
+
+</div>
+
+
             <form onSubmit={submitContact}>
             <div className="md:px-48 mt-5 md:mt-12 mb-5 px-5 ">
             <h1 className="text-3xl font-bold leading-normal mb-6">Zoeken</h1>
@@ -399,3 +492,97 @@ function setErrorMsg(message) {
     throw new Error('Function not implemented.');
 }
 
+
+
+
+
+
+
+
+
+class Html5QrcodePlugin extends React.Component {
+    render() {
+        return <div id={qrcodeRegionId} />;
+    }
+
+    componentWillUnmount() {
+        // TODO(mebjas): See if there is a better way to handle
+        //  promise in `componentWillUnmount`.
+        this.html5QrcodeScanner.clear().catch(error => {
+            console.error("Failed to clear html5QrcodeScanner. ", error);
+        });
+    }
+
+    componentDidMount() {
+        // Creates the configuration object for Html5QrcodeScanner.
+        function createConfig(props) {
+            var config = {};
+            if (props.fps) {
+            config.fps = props.fps;
+            }
+            if (props.qrbox) {
+            config.qrbox = props.qrbox;
+            }
+            if (props.aspectRatio) {
+            config.aspectRatio = props.aspectRatio;
+            }
+            if (props.disableFlip !== undefined) {
+            config.disableFlip = props.disableFlip;
+            }
+            return config;
+        }
+
+        var config = createConfig(this.props);
+        var verbose = this.props.verbose === true;
+
+        // Suceess callback is required.
+        if (!(this.props.qrCodeSuccessCallback )) {
+            throw "qrCodeSuccessCallback is required callback.";
+        }
+
+        this.html5QrcodeScanner = new Html5QrcodeScanner(
+            qrcodeRegionId, config, verbose);
+        this.html5QrcodeScanner.render(
+            this.props.qrCodeSuccessCallback,
+            this.props.qrCodeErrorCallback);
+    }
+};
+
+
+
+
+
+
+const QrReader = dynamic(() => import('react-qr-reader'), {
+    ssr: false
+})
+
+class Scan extends Component {
+    state = {
+      result: "No result",
+    };
+  
+    handleScan = (data) => {
+      if (data) {
+        this.setState({
+          result: data,
+        });
+        alert(JSON.stringify(data))
+      }
+    };
+    handleError = (err) => {
+      console.error(err);
+    };
+    render() {
+      return (
+        <div>
+          <QrReader
+            delay={300}
+            onError={this.handleError}
+            onScan={this.handleScan}
+          />
+          <p>{this.state.result}</p>
+        </div>
+      );
+    }
+  }
