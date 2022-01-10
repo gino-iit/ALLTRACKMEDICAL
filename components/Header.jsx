@@ -11,59 +11,6 @@ import { BellIcon, LogoutIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
 
 
-// {user?.isLoggedIn === false && (
-//   <li>
-//     <Link href="/login">
-//       <a>Login</a>
-//     </Link>
-//   </li>
-// )}
-// {user?.isLoggedIn === true && (
-//   <>
-//     <li>
-//       <Link href="/profile-sg">
-//         <a>
-//           <span
-//             style={{
-//               marginRight: '.3em',
-//               verticalAlign: 'middle',
-//               borderRadius: '100%',
-//               overflow: 'hidden',
-//             }}
-//           >
-//             {/* <Image
-//               src={user.avatarUrl}
-//               width={32}
-//               height={32}
-//               alt=""
-//             /> */}
-//           </span>
-//           Profile (Static Generation, recommended)
-//         </a>
-//       </Link>
-//     </li>
-//     <li>
-//       <Link href="/profile-ssr">
-//         <a>Profile (Server-side Rendering)</a>
-//       </Link>
-//     </li>
-//     <li>
-//       <a
-//         href="/api/logout"
-//         onClick={async (e) => {
-//           e.preventDefault()
-//           mutateUser(
-//             await fetchJson('/api/logout', { method: 'POST' }),
-//             false
-//           )
-//           router.push('/login')
-//         }}
-//       >
-//         Logout
-//       </a>
-
-
-
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
