@@ -20,13 +20,19 @@ var MaterialTypes = JSON.parse(Cookies.get('MaterialTypes'));
 var IdentifierTypes = JSON.parse(Cookies.get('IdentifierTypes'));
 var Processes = JSON.parse(Cookies.get('Processes'));
 
+// alert(JSON.stringify(MaterialTypes))
 
-    return (
+// alert(MaterialTypes.filter(obj => obj.MaterialTypeID == this.props.MaterialTypeID)[0].Name)
+
+
+var location =  this.props.LocationID != "Onbekend" ? Locations.filter(obj => obj.LocationID == this.props.LocationID)[0].Name : "Onbekend";
+    
+return (
         <div className="bg-white shadow overflow-hidden sm:rounded-lg border rounded-xl border-gray-200">
             <div className="px-4 py-5 sm:px-6 flex flex-nowrap">
                 <h3 className="text-lg leading-6 font-medium text-gray-900 ">Gegevens</h3>
                 &nbsp;&nbsp;
-                <InfoIcon id={this.props.Name} location={Locations.filter(obj => obj.LocationID == this.props.LocationID)[0].Name} role={MaterialTypes.filter(obj => obj.MaterialTypeID == this.props.MaterialTypeID)[0].Name}/> 
+                <InfoIcon id={this.props.Name} location={location} role={MaterialTypes.filter(obj => obj.MaterialTypeID == this.props.MaterialTypeID)[0].Name}/> 
 
             </div>
             <div className="border-t border-gray-200">
@@ -41,7 +47,7 @@ var Processes = JSON.parse(Cookies.get('Processes'));
                     </div>
                     <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt className="text-sm font-medium text-gray-500">Laatst waargenomen locatie</dt>
-                        <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{Locations.filter(obj => obj.LocationID == this.props.LocationID)[0].Name}</dd>
+                        <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{location}</dd>
                     </div>
                     <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt className="text-sm font-medium text-gray-500">Tags</dt>
