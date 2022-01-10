@@ -139,8 +139,8 @@ export default function Login() {
            </div>
 
 
-           {formik.values.Username}
-           {formik.values.password}
+           {/* {formik.values.Username}
+           {formik.values.password} */}
 {/* {JSON.stringify(resultData)}
 Resultaat: {JSON.stringify(JsonData)} */}
 
