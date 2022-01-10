@@ -8,10 +8,6 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, LogoutIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
-
-
-
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }

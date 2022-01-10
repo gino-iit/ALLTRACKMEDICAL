@@ -1,15 +1,4 @@
 import dynamic from 'next/dynamic'
-
-
-
-
-
-
-
-
-
-
-
 import React, {useState, Component, useEffect} from 'react';
 import Lottie from 'react-lottie';
 import animationData from '../lottie/empty.json';
@@ -42,14 +31,17 @@ function deleteAllCookies() {
     }
 }
 
+
+
 async function Bed(ultimo, sessionid) {
-
-        const data = await axios.post("/api/search_bed", { ultimo: ultimo, sessionid: sessionid });
-
-        console.log('ghi');
-        return JSON.stringify(data);
-
+    const data = await axios.post("/api/search_bed", {
+        "ultimo": ultimo,
+        "sessionid": sessionid,
+    });
+    console.log("Posted to API");
+    return JSON.stringify(data);
 }
+
 
   
 
@@ -60,13 +52,33 @@ async function Bed(ultimo, sessionid) {
 
 
 
-export default function Search() {
-    const router = useRouter()
+export default function Scanpage() {
+    const router = useRouter();
+    // const [searchResult, setSearchResult] = useState(false);
+    // const [emptyResult, setEmptyResult] = useState(null);
+    // const [resultDetails, setResultDetails] = useState(null);
+    // const [searchField, setSearchField] = useState("");
+    // const [searchShow, setSearchShow] = useState(false);
 
+    // Redirect
+    const { user } = useUser({
+        redirectTo: "/login",
+    });
+
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice",
+        },
+    };
+    
     const [searchResult, setSearchResult] = useState(false);
     const [emptyResult, setEmptyResult] = useState(null);
     const [resultDetails, setResultDetails] = useState(null);
 
+    const [showCamera, setShowCamera] = useState(false);
     // var details: { name: string; title: string; department: string; role: string; tag: string; }[];
 
 
@@ -79,81 +91,12 @@ export default function Search() {
 
 
 
-    const defaultOptions = {
-        loop: true,
-        autoplay: true,
-        animationData: animationData,
-        rendererSettings: {
-            preserveAspectRatio: "xMidYMid slice"
-        }}
+ 
 
 
         const qrcodeRegionId = "html5qr-code-full-region";
 
 
-
-        
-        // useEffect(() => {
-            
-
-
-
-//             const video = document.querySelector('#video')
-//             // Check if device has camera
-//             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-//               // Use video without audio
-//               const constraints = { 
-//                 video: true,
-//                 audio: false
-//               }
-              
-//               // Start video stream
-//               navigator.mediaDevices.getUserMedia(constraints).then(stream => video.srcObject = stream);
-//               // Create new barcode detector
-// const barcodeDetector = new BarcodeDetector({ formats: ['qr_code'] });
-// let formats;
-// // Save all formats to formats var 
-// BarcodeDetector.getSupportedFormats().then(arr => formats = arr);
-// Create new barcode detector with all supported formats
-// const barcodeDetector = new BarcodeDetector({ formats });
-// const barcodeDetector = new BarcodeDetector({ formats: ['qr_code'] });
-
-// Detect code function 
-// const detectCode = () => {
-//   // Start detecting codes on to the video element
-//   barcodeDetector.detect(video).then(codes => {
-//     // If no codes exit function
-//     if (codes.length === 0) return;
-    
-//     for (const barcode of codes)  {
-//       // Log the barcode to the console
-//       console.log(barcode)
-//     }
-//   }).catch(err => {
-//     // Log an error if one happens
-//     console.error(err);
-//   })
-// }
-// // Run detect code function every 100 milliseconds
-// setInterval(detectCode, 100);
-
-//             }
-//         })
-        
-    // const filteredPersons = details.filter(
-    //     person => {
-    //         return (
-    //             person
-    //                 .name
-    //                 .toLowerCase()
-    //                 .includes(searchField.toLowerCase()) ||
-    //             person
-    //                 .department
-    //                 .toLowerCase()
-    //                 .includes(searchField.toLowerCase())
-    //         );
-    //     }
-    // );
 
     const handleChange = e => {
         setSearchField(e.target.value);
@@ -166,53 +109,43 @@ export default function Search() {
 
     function searchList() {
         if (emptyResult) {
-
-            // return <a class="mt-5">Er zijn geen bedden beschikbaar voor je criteria</a>
-            return(
-                <div className="my-12"><h1 className="text-center  font-bold text-gray-600">Er zijn geen bedden beschikbaar voor je criteria...</h1>
-                    <Lottie
-                        options={defaultOptions}
-                        height={200}
-                        width={200}
-                    /></div>
-            )
+            return (
+                <div className="my-12">
+                    <h1 className="text-center  font-bold text-gray-600">
+                        Er zijn geen bedden beschikbaar voor je criteria...
+                    </h1>
+                    <Lottie options={defaultOptions} height={200} width={200} />
+                </div>
+            );
         }
-
         if (searchResult) {
-            
-            // return <Table beds={filteredPersons}/>
-            if (resultDetails != undefined){
-                resultDetails = JSON.parse(resultDetails);
-                return <Overview Name={resultDetails.Name} LocationID={resultDetails.LocationID} tag={resultDetails.tag} MaterialTypeID={resultDetails.MaterialTypeID}/>
+            if (resultDetails != undefined) {
+                // alert("Aihnoo");
+                // alert(resultDetails);
 
+                var parsed = JSON.parse(resultDetails);
+
+                // alert(parsed.MaterialTypeID);
+
+                // resultDetails = JSON.parse(resultDetails);
+                return (
+                    <Overview
+                        Name={parsed.Name}
+                        LocationID={parsed.LocationID}
+                        tag={parsed.tag}
+                        MaterialTypeID={parsed.MaterialTypeID}
+                    />
+                );
             }
-
-        } 
-        else {
-
-            return null
-
-            // return <Table beds={details}/>
-
-
+        } else {
+            return null;
         }
     }
 
-
-
-    
-
-
-    
+  
      
 
-     
-    //  function searchBed(event) {
-    //     event.preventDefault();
-    //     console.log('ewaja');
-    //     Bed(event.target.name.value);
-        
-    // }
+
 
     const submitContact = async (event) => {
         setEmptyResult(false);
@@ -272,23 +205,21 @@ export default function Search() {
         }
     }
     
-    
     var html5QrcodeScanner = () => new Html5QrcodeScanner(
-        "qr-reader", { fps: 250, qrbox: 250 });
+        "qr-reader", { fps: 250, qrbox: 150 });
         () => html5QrcodeScanner.render(onScanSuccess);
 
     return (
 
         <Layout>
 <div className="px-64">
-<Scan />
 
 </div>
 
 
             <form onSubmit={submitContact}>
             <div className="md:px-48 mt-5 md:mt-12 mb-5 px-5 ">
-            <h1 className="text-3xl font-bold leading-normal mb-6">Zoeken</h1>
+            <h1 className="text-3xl font-bold leading-normal mb-6">Scannen</h1>
 
             {/*className="px-4 py-4"*/}
         <section >
@@ -297,6 +228,11 @@ export default function Search() {
     <Alert message="Oh nee, je bent offline sinds: " since={Date().toLocaleString()} />
 </Offline>
             <div>
+
+
+
+
+
                 {/*<label htmlFor="department" className="block text-sm font-medium text-gray-700">Bedden</label>*/}
                 <div className="mt-1 relative rounded-md shadow-sm">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -323,6 +259,11 @@ export default function Search() {
 
             </div>
             <button
+onClick={() => setShowCamera(true)}                className="font-bold mt-5 w-full h-12 px-4 text-lg text-black  transition-colors duration-150 bg-gray-100 rounded-lg focus:shadow-outline hover:bg-gray-300"
+                // onClick={() => setOpen(true)}
+            >Camera
+            </button>
+            <button
             type="submit"
                 className="font-bold mt-5 w-full h-12 px-4 text-lg text-white transition-colors duration-150 bg-red-600 rounded-lg focus:shadow-outline hover:bg-red-700"
                 // onClick={() => setOpen(true)}
@@ -330,6 +271,16 @@ export default function Search() {
                 Zoeken
 
             </button>
+
+
+
+
+
+{ showCamera &&             
+<div className="mt-12 rounded-lg">
+    <Scan />
+    </div>}
+
 
             <div className="mt-8">
                 {searchList()}

@@ -68,7 +68,7 @@ export default function Search() {
                 // alert(resultDetails);
 
                 var parsed = JSON.parse(resultDetails);
-
+// alert(parsed.Name)
                 // alert(parsed.MaterialTypeID);
 
                 // resultDetails = JSON.parse(resultDetails);
