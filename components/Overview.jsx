@@ -33,9 +33,9 @@ return (
                 <h3 className="text-lg leading-6 font-medium text-gray-900 ">Gegevens</h3>
                 &nbsp;&nbsp;
                 <InfoIcon id={this.props.Name} location={location} role={MaterialTypes.filter(obj => obj.MaterialTypeID == this.props.MaterialTypeID)[0].Name}/> 
-                <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                {/* <p class="mt-1 max-w-2xl text-sm text-gray-500">
       Personal details and application.
-    </p>
+    </p> */}
             </div>
             <div className="border-t border-gray-200 ">
                 <dl>

@@ -59,6 +59,7 @@ async function Bed(ultimo, sessionid) {
 
 export default function Scanpage() {
     let [isOpen, setIsOpen] = useState(false)
+    let [qrValue, setQrValue] = useState(null)
 
     function closeModal() {
       setIsOpen(false)
@@ -108,7 +109,7 @@ export default function Scanpage() {
             <h1 className="text-3xl font-bold leading-normal mb-6">Camera gebruiken</h1>
 
             <button onClick={switchCamera} className="border border-2 hover:border-gray-300 font-bold mt-5 w-full h-12 px-4 text-lg text-black  transition-colors duration-150 bg-gray-200 rounded-lg focus:shadow-outline hover:bg-gray-300">
-                Scannen
+                Scannen 
             </button>
 
 
@@ -425,6 +426,7 @@ class Scan extends Component {
         });
         alert(JSON.stringify(data))
         const ultimoNumber = JSON.stringify(data);
+        // setQrValue(ultimoNumber);
       }
     };
     handleError = (err) => {
