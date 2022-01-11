@@ -107,7 +107,7 @@ export default function Scanpage() {
 
             <h1 className="text-3xl font-bold leading-normal mb-6">Camera gebruiken</h1>
 
-            <button onClick={switchCamera} className="font-bold mt-5 w-full h-12 px-4 text-lg text-black  transition-colors duration-150 bg-gray-100 rounded-lg focus:shadow-outline hover:bg-gray-300">
+            <button onClick={switchCamera} className="border border-2 hover:border-gray-300 font-bold mt-5 w-full h-12 px-4 text-lg text-black  transition-colors duration-150 bg-gray-200 rounded-lg focus:shadow-outline hover:bg-gray-300">
                 Scannen
             </button>
 
@@ -169,7 +169,7 @@ export default function Scanpage() {
                     className="inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500"
                     onClick={closeModal}
                   >
-                    Verder
+                    Terug
                   </button>
                 </div>
               </div>
@@ -415,7 +415,7 @@ const QrReader = dynamic(() => import('react-qr-reader'), {
 
 class Scan extends Component {
     state = {
-      result: "No result",
+      result: "",
     };
   
     handleScan = (data) => {
@@ -424,6 +424,7 @@ class Scan extends Component {
           result: data,
         });
         alert(JSON.stringify(data))
+        const ultimoNumber = JSON.stringify(data);
       }
     };
     handleError = (err) => {
