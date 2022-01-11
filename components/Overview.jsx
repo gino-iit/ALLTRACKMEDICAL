@@ -28,14 +28,14 @@ var Processes = JSON.parse(Cookies.get('Processes'));
 var location =  this.props.LocationID != "Onbekend" ? Locations.filter(obj => obj.LocationID == this.props.LocationID)[0].Name : "Onbekend";
     
 return (
-        <div className="bg-white shadow overflow-hidden sm:rounded-lg border rounded-xl border-gray-200">
+        <div className="bg-white shadow overflow-hidden sm:rounded-lg border rounded-xl border-gray-200 mb-8">
             <div className="px-4 py-5 sm:px-6 flex flex-nowrap">
                 <h3 className="text-lg leading-6 font-medium text-gray-900 ">Gegevens</h3>
                 &nbsp;&nbsp;
                 <InfoIcon id={this.props.Name} location={location} role={MaterialTypes.filter(obj => obj.MaterialTypeID == this.props.MaterialTypeID)[0].Name}/> 
 
             </div>
-            <div className="border-t border-gray-200">
+            <div className="border-t border-gray-200 ">
                 <dl>
                     <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt className="text-sm font-medium text-gray-500">Ultimo nummer</dt>

@@ -1,33 +1,17 @@
-import dynamic from 'next/dynamic'
-import React, {useState, Component, useEffect, Fragment} from 'react';
-import Lottie from 'react-lottie';
-import animationData from '../lottie/empty.json';
+import React, { useState } from "react";
+import Lottie from "react-lottie";
+import animationData from "../lottie/empty.json";
 import Alert from "../components/Alert";
 import { Offline } from "react-detect-offline";
-import { useRouter } from 'next/router'
-import { Dialog, Transition } from '@headlessui/react'
-
-import '@heroicons/react/outline';
-import InfoIcon from '../components/InfoIcon';
-import { PaperClipIcon } from '@heroicons/react/solid'
-import Layout from 'components/Layout';
-import useUser from 'lib/useUser';
-import {useFormik} from 'formik';
-import Overview from '../components/Overview'
-import axios from 'axios'
-import fetchJson, { FetchError } from 'lib/fetchJson';
-import user from './api/user';
-// import Table from "./table";
-import { Html5QrcodeScanner } from "html5-qrcode";
-// import Blob from 'blob'
-
-import Result from "components/Result"
-
-
+import { useRouter } from "next/router";
+import "@heroicons/react/outline";
+import Layout from "components/Layout";
+import useUser from "lib/useUser";
+import Overview from "../components/Overview";
+import axios from "axios";
 
 function deleteAllCookies() {
     var cookies = document.cookie.split(";");
-
     for (var i = 0; i < cookies.length; i++) {
         var cookie = cookies[i];
         var eqPos = cookie.indexOf("=");
@@ -35,8 +19,6 @@ function deleteAllCookies() {
         document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
     }
 }
-
-
 
 async function Bed(ultimo, sessionid) {
     const data = await axios.post("/api/search_bed", {
@@ -47,160 +29,188 @@ async function Bed(ultimo, sessionid) {
     return JSON.stringify(data);
 }
 
+export default function Search() {
+    const router = useRouter();
+    const [searchResult, setSearchResult] = useState(false);
+    const [emptyResult, setEmptyResult] = useState(null);
+    const [resultDetails, setResultDetails] = useState(null);
+    const [searchField, setSearchField] = useState("");
+    const [searchShow, setSearchShow] = useState(false);
 
-  
+    // Redirect
+    const { user } = useUser({
+        redirectTo: "/login",
+    });
 
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice",
+        },
+    };
 
+    function searchList() {
+        if (emptyResult) {
+            return (
+                <div className="my-12">
+                    <h1 className="text-center  font-bold text-gray-600">
+                        Er zijn geen bedden beschikbaar voor je criteria...
+                    </h1>
+                    <Lottie options={defaultOptions} height={200} width={200} />
+                </div>
+            );
+        }
+        if (searchResult) {
+            if (resultDetails != undefined) {
+                // alert("Aihnoo");
+                // alert(resultDetails);
 
+                var parsed = JSON.parse(resultDetails);
+// alert(parsed.Name)
+                // alert(parsed.MaterialTypeID);
 
-
-
-
-
-export default function Scanpage() {
-    let [isOpen, setIsOpen] = useState(false)
-
-    function closeModal() {
-      setIsOpen(false)
-    }
-  
-    function openModal() {
-      setIsOpen(true)
-    }
-  
-    const [showCamera, setShowCamera] = useState(false);
-
-        const qrcodeRegionId = "html5qr-code-full-region";
-
-
-    // const qrScanner = new QrScanner("#video", result => console.log('decoded qr code:', result));
-    // qrScanner.start();
-
-    // var onNewScanResult = onNewScanResult.bind(this);
-
-    var resultContainer = () => document.getElementById('qr-reader-results');
-    var lastResult, countResults = 0;
-    
-    function onScanSuccess(decodedText, decodedResult) {
-        if (decodedText !== lastResult) {
-            ++countResults;
-            lastResult = decodedText;
-            // Handle on success condition with the decoded message.
-            console.log(`Scan result ${decodedText}`, decodedResult);
+                // resultDetails = JSON.parse(resultDetails);
+                return (
+                    <Overview
+                        Name={parsed.Name}
+                        LocationID={parsed.LocationID}
+                        tag={parsed.tag}
+                        MaterialTypeID={parsed.MaterialTypeID}
+                    />
+                );
+            }
+        } else {
+            return null;
         }
     }
-    function switchCamera(){
-        openModal();
-        setShowCamera(true);
-    }
-    var html5QrcodeScanner = () => new Html5QrcodeScanner(
-        "qr-reader", { fps: 250, qrbox: 150 });
-        () => html5QrcodeScanner.render(onScanSuccess);
+
+    const submitContact = async (event) => {
+        setEmptyResult(false);
+
+        event.preventDefault();
+        var result = JSON.parse(
+            await Bed(event.target.ultimo.value, user.sessionID)
+        ).data;
+        // alert(JSON.stringify(result));
+        if (result["___system___"].code === 0) {
+            if (result.data === null) {
+                setEmptyResult(true);
+                // alert('Er is helaas niets gevonden...');
+            } else {
+                // deleteAllCookies();
+                // router.push("/login");
+
+       
+       
+       
+    //    alert(JSON.stringify(result.data))
+                const resultJson = result.data;
+                // alert(resultJson.MaterialTypeID);
+                // alert(JSON.stringify(resultJson));
+         
+                var details = {
+                    id: resultJson.Name != null? resultJson.Name : "Onbekend",
+                    Name: resultJson.Name != null?  resultJson.Name : "Onbekend",
+                    LocationID: resultJson.LocationID != null? resultJson.LocationID : "Onbekend",
+                    MaterialTypeID: resultJson.MaterialTypeID != null? resultJson.MaterialTypeID : "Onbekend",
+                };
+
+                if (resultJson.Identifiers != null) {
+                    details.tag = resultJson.Identifiers[0].Name;
+                } else {
+                    details.tag = "Onbekend";
+                }
+
+                // alert("Je hebt gezocht en iets gevonden! Namelijk:");
+
+
+                setSearchResult(details);
+                setResultDetails(JSON.stringify(details));
+
+
+
+
+
+
+
+                // alert(result.Name)
+                // alert(JSON.stringify(details));
+                // alert("details")
+
+
+            }
+        } else if (result["___system___"].code === -1) {
+            alert("Je bent uitgelogd, log opnieuw in.");
+            deleteAllCookies();
+            router.reload(window.location.pathname);
+            router.push("/");
+
+        } else {
+            setEmptyResult(true);
+            alert("Er is helaas niets gevonden...");
+        }
+        // alert(`So your name is ${event.target.ultimo.value}?`);
+    };
 
     return (
-
         <Layout>
+            <form onSubmit={submitContact}>
+                <div className="md:px-48 mt-5 md:mt-12 mb-5 px-5 ">
+                    <h1 className="text-3xl font-bold leading-normal mb-6">Zoeken</h1>
 
-<div className="md:px-48 mt-5 md:mt-12 mb-5 px-5 ">
-        <h1 className="text-3xl font-bold leading-normal mb-6">Zoeken op nummer</h1>
-            <Result />
+                    {/*className="px-4 py-4"*/}
+                    <section>
+                        <Offline>
+                            <Alert
+                                message="Oh nee, je bent offline sinds: "
+                                since={Date().toLocaleString()}
+                            />
+                        </Offline>
+                        <div>
+                            {/*<label htmlFor="department" className="block text-sm font-medium text-gray-700">Bedden</label>*/}
+                            <div className="mt-1 relative rounded-md shadow-sm">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-5 w-5 text-gray-400"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                                        />
+                                    </svg>
+                                </div>
+                                <input
+                                    type="number"
+                                    placeholder="Bijv. 88366..."
+                                    name="ultimo"
+                                    required
+                                    className="focus:ring-red-600 focus:border-red-600 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
+                                />
+                            </div>
+                        </div>
+                        <button
+                            type="submit"
+                            className="font-bold mt-5 w-full h-12 px-4 text-lg text-white transition-colors duration-150 bg-red-600 rounded-lg focus:shadow-outline hover:bg-red-700"
+                        // onClick={() => setOpen(true)}
+                        >
+                            Zoeken
+                        </button>
 
-            <h1 className="text-3xl font-bold leading-normal mb-6">Camera gebruiken</h1>
-
-            <button onClick={switchCamera} className="font-bold mt-5 w-full h-12 px-4 text-lg text-black  transition-colors duration-150 bg-gray-100 rounded-lg focus:shadow-outline hover:bg-gray-300">
-                Scannen
-            </button>
-
-
-            <Transition appear show={isOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className="fixed inset-0 z-10 overflow-y-auto"
-          onClose={closeModal}
-        >      <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
-
-          <div className="min-h-screen px-4 text-center">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <Dialog.Overlay className="fixed inset-0" />
-            </Transition.Child>
-
-            {/* This element is to trick the browser into centering the modal contents. */}
-            <span
-              className="inline-block h-screen align-middle"
-              aria-hidden="true"
-            >
-              &#8203;
-            </span>
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                <Dialog.Title
-                  as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900"
-                >
-                  Scan de QR-code
-                </Dialog.Title>
-                <div className="mt-2">
-                  <p className="text-sm text-gray-500">
-                  { showCamera &&             
-<div className="mt-12 rounded-lg">
-    <Scan />
-    </div>}                  </p>
+                        <div className="mt-8">{searchList()}</div>
+                    </section>
                 </div>
-
-                <div className="mt-4">
-                  <button
-                    type="button"
-                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500"
-                    onClick={closeModal}
-                  >
-                    Verder
-                  </button>
-                </div>
-              </div>
-            </Transition.Child>
-          </div>
-        </Dialog>
-      </Transition>
-      </div>
-            
-
-           
-
-
-
-
-
-{/* { showCamera &&             
-<div className="mt-12 rounded-lg">
-    <Scan />
-    </div>} */}
-
-
-            
-
-
-
+            </form>
         </Layout>
-
     );
 }
-
 
 // class Table extends React.Component {
 //     render() {
@@ -268,7 +278,6 @@ export default function Scanpage() {
 //     }
 // }
 
-
 // class Table extends React.Component {
 //     render() {
 //         var beds = this.props.beds;
@@ -307,9 +316,6 @@ export default function Scanpage() {
 //                                         </td>
 //                                         <td className="px-6 py-4 whitespace-nowrap">
 
-
-
-
 // {(bed.role === "Beschikbaar" ?
 //     <span
 //     className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -337,108 +343,6 @@ export default function Scanpage() {
 //     }
 // }
 
-
-
-
-
-
-
-
 function setErrorMsg(message) {
-    throw new Error('Function not implemented.');
+    throw new Error("Function not implemented.");
 }
-
-
-
-
-
-
-
-
-
-class Html5QrcodePlugin extends React.Component {
-    render() {
-        return <div id={qrcodeRegionId} />;
-    }
-
-    componentWillUnmount() {
-        // TODO(mebjas): See if there is a better way to handle
-        //  promise in `componentWillUnmount`.
-        this.html5QrcodeScanner.clear().catch(error => {
-            console.error("Failed to clear html5QrcodeScanner. ", error);
-        });
-    }
-
-    componentDidMount() {
-        // Creates the configuration object for Html5QrcodeScanner.
-        function createConfig(props) {
-            var config = {};
-            if (props.fps) {
-            config.fps = props.fps;
-            }
-            if (props.qrbox) {
-            config.qrbox = props.qrbox;
-            }
-            if (props.aspectRatio) {
-            config.aspectRatio = props.aspectRatio;
-            }
-            if (props.disableFlip !== undefined) {
-            config.disableFlip = props.disableFlip;
-            }
-            return config;
-        }
-
-        var config = createConfig(this.props);
-        var verbose = this.props.verbose === true;
-
-        // Suceess callback is required.
-        if (!(this.props.qrCodeSuccessCallback )) {
-            throw "qrCodeSuccessCallback is required callback.";
-        }
-
-        this.html5QrcodeScanner = new Html5QrcodeScanner(
-            qrcodeRegionId, config, verbose);
-        this.html5QrcodeScanner.render(
-            this.props.qrCodeSuccessCallback,
-            this.props.qrCodeErrorCallback);
-    }
-};
-
-
-
-
-
-
-const QrReader = dynamic(() => import('react-qr-reader'), {
-    ssr: false
-})
-
-class Scan extends Component {
-    state = {
-      result: "No result",
-    };
-  
-    handleScan = (data) => {
-      if (data) {
-        this.setState({
-          result: data,
-        });
-        alert(JSON.stringify(data))
-      }
-    };
-    handleError = (err) => {
-      console.error(err);
-    };
-    render() {
-      return (
-        <div>
-          <QrReader
-            delay={300}
-            onError={this.handleError}
-            onScan={this.handleScan}
-          />
-          <p>{this.state.result}</p>
-        </div>
-      );
-    }
-  }
