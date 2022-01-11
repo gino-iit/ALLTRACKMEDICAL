@@ -58,7 +58,7 @@ export function HeaderNav() {
                     src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-white-text.svg"
                     alt="Workflow"
                   /> */}
-                  <a className="text-2xl text-white">ASZ</a>
+                  <a className="text-xl text-white">FindMyAssets</a>
                 </div>
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
