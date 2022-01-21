@@ -81,6 +81,7 @@ export default function Results() {
               LocationID={parsed.LocationID}
               tag={parsed.tag}
               MaterialTypeID={parsed.MaterialTypeID}
+              LastSeen={parsed.LastSeen}
             />
           );
         }
@@ -107,6 +108,7 @@ export default function Results() {
   
           //    alert(JSON.stringify(result.data))
           const resultJson = result.data;
+          // alert(JSON.stringify(resultJson.LastSeen))
           // alert(resultJson.MaterialTypeID);
           // alert(JSON.stringify(resultJson));
   
@@ -119,6 +121,8 @@ export default function Results() {
               resultJson.MaterialTypeID != null
                 ? resultJson.MaterialTypeID
                 : "Onbekend",
+                LastSeen: resultJson.LastSeen != null ? resultJson.LastSeen : "Onbekend",
+
           };
   
           if (resultJson.Identifiers != null) {

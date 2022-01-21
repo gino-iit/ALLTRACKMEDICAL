@@ -161,6 +161,7 @@ export default function Scanpage() {
                   { showCamera &&             
 <div className="mt-12 rounded-lg">
     <Scan />
+    
     </div>}                  </p>
                 </div>
 
@@ -416,7 +417,7 @@ const QrReader = dynamic(() => import('react-qr-reader'), {
 
 class Scan extends Component {
     state = {
-      result: "",
+      result: "Nog geen QR-code gescand",
     };
   
     handleScan = (data) => {
@@ -424,7 +425,9 @@ class Scan extends Component {
         this.setState({
           result: data,
         });
-        alert(JSON.stringify(data))
+        // this.QrValue(JSON.stringify(data))
+        // alert(JSON.stringify(data))
+        // alert(qrValue)
         const ultimoNumber = JSON.stringify(data);
         // setQrValue(ultimoNumber);
       }
