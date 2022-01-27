@@ -10,9 +10,9 @@ import Cookies from 'js-cookie';
 
 
 
-    export default class Overview extends React.Component {
-        
-    render() {
+export default class Overview extends React.Component {
+        render() {
+
 // alert(info)
 // alert(cookieCutter.get('Locations'))
 
@@ -67,5 +67,5 @@ return (
             </div>
         </div>
     )
-    }
+}
 }
