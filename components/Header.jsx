@@ -19,7 +19,7 @@ export function HeaderNav() {
 
   const navigation = [
     { name: 'Home', href: '/', current: false },
-    { name: 'Scannen', href: '/scan', current: false },
+    { name: 'Toevoegen', href: '/scan', current: false },
     { name: 'Zoeken', href: '/search', current: false },
   ] 
   // ? user?.isLoggedIn === false : 

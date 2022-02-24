@@ -30,7 +30,7 @@ const last = momentObject.startOf('day').fromNow(); ;
 var location =  this.props.LocationID != "Onbekend" ? Locations.filter(obj => obj.LocationID == this.props.LocationID)[0].Name : "Onbekend";
     
 return (
-        <div className="bg-white shadow overflow-hidden sm:rounded-lg border rounded-xl border-gray-200 mb-">
+        <div className="bg-white shadow overflow-hidden sm:rounded-lg border rounded-xl border-gray-200 mb-8">
             <div className="px-4 pt-5 sm:px-6 flex flex-wrap">
                 <h3 className="text-lg leading-6 font-medium text-gray-900 ">Gegevens</h3>
                 &nbsp;&nbsp;
