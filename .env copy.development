@@ -1,0 +1,13 @@
+# ⚠️ The SECRET_COOKIE_PASSWORD should never be inside your repository directly, it's here only to ease
+# the example deployment
+# For local development, you should store it inside a `.env.local` gitignored file
+# See https://nextjs.org/docs/basic-features/environment-variables#loading-environment-variables
+
+SECRET_COOKIE_PASSWORD=2gyZ3GDw3LHZQKDhPmPDL3sjREVRXPr8
+
+
+
+REDIS_URL=redis://redis-19397.c293.eu-central-1-1.ec2.cloud.redislabs.com?port=19397&password=UaT7HfRWO39rPRiOAa20koeNaWTUxlvQ
+
+API_URL=https://asz-assets.test.improvement-it.nl/
+CLIENT_NAME="WZU Veluwe"
