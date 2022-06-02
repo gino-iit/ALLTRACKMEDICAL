@@ -9,7 +9,7 @@ import redis from '../lib/connections/redis';
 
 // import '@headlessui/react'
 
-export default function Home({User}) {
+export default function Home({User} : { User: any}) {
   const { user } = useUser({
     redirectTo: '/login',
   })
@@ -112,7 +112,7 @@ export default function Home({User}) {
 
 
 // This gets called on every request
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: { req: { headers: { cookie: string; }; }; res: { statusCode: number; setHeader: (arg0: string, arg1: string) => void; }; }) {
   // Fetch data from external API
   // const res = await fetch(`https://.../data`)
   // const data = 'await res.json'
@@ -124,7 +124,7 @@ export async function getServerSideProps(context) {
       // console.log(cookies.User);
       const loggedIn =  cookies.userSession ? true : false;
   
-      console.log(loggedIn);
+      // console.log(loggedIn);
   
       if (!loggedIn){
         context.res.statusCode = 302
@@ -144,7 +144,7 @@ export async function getServerSideProps(context) {
       // Pass data to the page via propsspo
       return { props: { User } }
     } catch (error) {
-      console.log(error.message)
+      // console.log(error.message)
       context.res.statusCode = 302
       context.res.setHeader('Location', `/login`) // Replace <link> with your url link
       return {props: {}}
