@@ -24,9 +24,8 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
 
 
 
-
-
-    const apiUrl = "https://asz-assets.test.improvement-it.nl/";
+    const apiUrl = String(process.env.API_URL);
+    
       var body = {
           "AppVersion": 4,
           "BlockReasonsVersion": 0,
@@ -37,7 +36,7 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
           "MaterialTypesVersion": -1,
           "ProcessesVersion": -1,
           "Username": "gino",
-          "Password": "qokraz-jaqZu5-xuqsid",
+          "Password": "Welkom123",
           // "Username": String(username),
           // "Password": String(password),
 
@@ -46,7 +45,8 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
           "IMEI": "02:00:00:00:00:00",
           "ConnectLogID": "61dc5ec5-85b8-40d8-9ad9-2b6a17188706"
       };
-    
+      console.log(body);
+
      
     // var sessioncookie = "session=" + user?.sessionID;
     // console.log(sessioncookie);
@@ -70,18 +70,19 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
       if (response["___system___"].code === -7){
         throw new RangeError("Verkeerde wachtwoord/gebruikersnaam combinatie");
       }
+      console.log(JSON.stringify({"Locations": response.Locations}));
 
-      res.setHeader('Set-Cookie', [serialize('Locations', JSON.stringify(response.Locations), { path: '/' }), 
-      serialize('MaterialTypes', JSON.stringify(response.MaterialTypes), { path: '/' }),
-      serialize('IdentifierTypes', JSON.stringify(response.IdentifierTypes), { path: '/' }),
-      serialize('Processes', JSON.stringify(response.Processes), { path: '/' })]);
+
+      res.setHeader('Set-Cookie', [ 
+      serialize('User', JSON.stringify({"Username": body.Username}), { path: '/' }),
+    ]);
 
 
 
     const user = { isLoggedIn: true, login: response.Username, sessionID: response.SessionId } as User
     req.session.user = user
     await req.session.save()
-    res.json(user)
+    res.json({user, response})
 
   } catch (error) {
     res.status(500).json({ message: (error as Error).message })

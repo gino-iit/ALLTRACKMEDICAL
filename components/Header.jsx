@@ -24,20 +24,24 @@ export function HeaderNav() {
   ] 
   // ? user?.isLoggedIn === false : 
 
+  // const client = process.env.CLIENT_NAME;
+  const client = "WZU Veluwe";
+  const clientUrl = "https://www.wzuveluwe.nl/wp-content/themes/woonzorg-unie-veluwe/images/logo-wzuveluwe.png";
   return (
-    <Disclosure as="nav" className="bg-red-600">
+    <Disclosure as="nav" className="bg-primary md:px-40 mb-5 px-0 ">
       {({ open }) => (
         <>
              <Head>
+
              <link rel="manifest" href="./manifest.json" />
 
 </Head>
-          <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ">
             <div className="relative flex items-center justify-between h-16">
-              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden ">
                 {/* Mobile menu button*/}
              
-                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-white hover:bg-primary focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -46,8 +50,8 @@ export function HeaderNav() {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex-shrink-0 flex items-center">
+              <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start ">
+                <div className="flex-shrink-0 flex items-center ">
                   {/* <img
                     className="block lg:hidden h-8 w-auto"
                     src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
@@ -58,7 +62,9 @@ export function HeaderNav() {
                     src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-white-text.svg"
                     alt="Workflow"
                   /> */}
-                  <a className="text-xl text-white">FindMyAssets</a>
+                  {/* <a className="text-xl text-white">FindMyAssets</a> */}
+                  {/* <img className="max-h-8" src={clientUrl}/> */}
+                  <a className="text-xl text-white">{client}</a>
                 </div>
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
@@ -67,7 +73,7 @@ export function HeaderNav() {
                       <a
                         key={item.name}
                         className={classNames(
-                          item.current ? 'bg-red-700 text-white' : 'text-white hover:bg-red-700 transition hover:text-white',
+                          item.current ? 'bg-secondary text-white' : 'text-white hover:bg-primary-hover transition hover:text-white',
                           'px-3 py-2 rounded-md text-sm font-medium'
                         )}
                         aria-current={item.current ? 'page' : undefined}
@@ -132,7 +138,7 @@ export function HeaderNav() {
                   as="a"
                   href={item.href}
                   className={classNames(
-                    item.current ? 'bg-red-700 text-white' : 'text-white hover:bg-red-600 hover:text-white',
+                    item.current ? 'bg-primary text-white' : 'text-white hover:bg-primary-hover hover:text-white',
                     'block px-3 py-2 rounded-md text-base font-medium'
                   )}
                   aria-current={item.current ? 'page' : undefined}

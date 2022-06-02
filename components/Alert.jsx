@@ -3,9 +3,9 @@ import ReactDOM from "react-dom";
 
 export default function Alert(props) {
   return (
-<div className="bg-white">
-    <div className="max-w-7xl py-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
+<div className="">
+    {/* <div className="max-w-7xl py-4 sm:px-6 lg:px-8"> */}
+      <div className="max-w-4xl mx-auto mb-4">
         
   <div className="rounded-md bg-yellow-50 p-4">
     <div className="flex">
@@ -23,7 +23,7 @@ export default function Alert(props) {
     </div>
   </div>
 
-      </div>
+      {/* </div> */}
     </div>
   </div>
   )}

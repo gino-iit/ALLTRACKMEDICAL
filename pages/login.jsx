@@ -41,9 +41,15 @@ export default function Login() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body),
           })
-
-          mutateUser(code)
-
+          console.log(69);
+          console.log(code.response.Locations);
+          localStorage.setItem('Locations', JSON.stringify(code.response.Locations));
+          localStorage.setItem('MaterialTypes', JSON.stringify(code.response.MaterialTypes));
+          localStorage.setItem('IdentifierTypes', JSON.stringify(code.response.IdentifierTypes));
+          localStorage.setItem('Processes', JSON.stringify(code.response.Processes));
+          localStorage.setItem('User', JSON.stringify({"Username": code.response.user.Username}));
+          mutateUser(code.response.user)
+// {isLoggedIn: true, login: "gino", sessionID: "4hq0iel8bv70hvt7t1dcdhojpb5k0i73"}
         } catch (error) {
           if (error instanceof FetchError) {
             setErrorMsg(error.data.message)
@@ -85,11 +91,19 @@ export default function Login() {
   <h1 className="text-3xl text-center font-bold leading-normal mb-6">Login</h1>
        <form onSubmit={formik.handleSubmit}>
            <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+
+
+
+
+             
               <div className="max-w-md w-full space-y-8">
-<div><b>Kies je instantie</b><Dropdown/></div>
+<div>
+  {/* <b>Kies je instantie</b><div className="pt-2"><Dropdown />
+</div> */}
+</div>
 
                   <div className="rounded-md shadow-sm -space-y-px"><b>Vul je gegevens in</b>
-                      <div>
+                      <div className="pt-2">
                           <label htmlFor="Username-address" className="sr-only">
                               Username
                           </label>
@@ -99,7 +113,7 @@ export default function Login() {
                               type="text"
                               autoComplete="email"
                               required
-                              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-t-md focus:outline-none focus:ring-red-400 focus:border-red-400 focus:z-10 sm:text-sm"
+                              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-t-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
                               placeholder="E-mailadres"
                               onChange={formik.handleChange}
                               value={formik.values.Username}/>
@@ -113,10 +127,10 @@ export default function Login() {
                           <input
                               id="password"
                               name="password"
-                              type="text"
+                              type="password"
                               autoComplete="current-password"
                               required
-                              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-b-md focus:outline-none focus:ring-red-400 focus:border-red-400 focus:z-10 sm:text-sm"
+                              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-b-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
                               placeholder="Wachtwoord"
                               onChange={formik.handleChange}
                               value={formik.values.password}/>
@@ -125,15 +139,15 @@ export default function Login() {
                   <div>
                       <button
                           type="submit"
-                          className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400"
+                          className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                       >
                           <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                                <LockClosedIcon className="h-5 w-5 text-red-400 group-hover:text-red-400" aria-hidden="true"/>
+                                <LockClosedIcon className="h-5 w-5 text-primary group-hover:text-primary" aria-hidden="true"/>
                            </span>
                           Inloggen
                       </button>
                   </div>
-                  {errorMsg && <span className='text-red-500'>{errorMsg}</span>}
+                  {errorMsg && <span className='text-primary-light'>{errorMsg}</span>}
 
               </div>
            </div>
@@ -225,7 +239,7 @@ function alertUser(errorMsg) {
 //                               type="email"
 //                               autoComplete="email"
 //                               required
-//                               className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-t-md focus:outline-none focus:ring-red-400 focus:border-red-400 focus:z-10 sm:text-sm"
+//                               className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-t-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
 //                               placeholder="E-mailadres"
 //                               onChange={formik.handleChange}
 //                               value={formik.values.email}/>
@@ -242,7 +256,7 @@ function alertUser(errorMsg) {
 //                               type="text"
 //                               autoComplete="current-password"
 //                               required
-//                               className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-b-md focus:outline-none focus:ring-red-400 focus:border-red-400 focus:z-10 sm:text-sm"
+//                               className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-b-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
 //                               placeholder="Wachtwoord"
 //                               onChange={formik.handleChange}
 //                               value={formik.values.password}/>
@@ -251,10 +265,10 @@ function alertUser(errorMsg) {
 //                   <div>
 //                       <button
 //                           type="submit"
-//                           className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400"
+//                           className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
 //                       >
 //                           <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-//                                 <LockClosedIcon className="h-5 w-5 text-red-400 group-hover:text-red-400" aria-hidden="true"/>
+//                                 <LockClosedIcon className="h-5 w-5 text-primary group-hover:text-primary" aria-hidden="true"/>
 //                            </span>
 //                           Inloggen
 //                       </button>
@@ -314,7 +328,7 @@ export function Dropdown() {
       {({ open }) => (
         <>
           <div className="mt-1 relative">
-            <Listbox.Button className="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500 sm:text-sm">
+            <Listbox.Button className="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-primary-light focus:border-primary-light sm:text-sm">
               <span className="flex items-center">
                 <img src={selected.avatar} alt="" className="flex-shrink-0 h-6 w-6 rounded-full" />
                 <span className="ml-3 block truncate">{selected.name}</span>
@@ -337,7 +351,7 @@ export function Dropdown() {
                     key={person.id}
                     className={({ active }) =>
                       classNames(
-                        active ? 'text-white bg-red-600' : 'text-gray-900',
+                        active ? 'text-white bg-primary' : 'text-gray-900',
                         'cursor-default select-none relative py-2 pl-3 pr-9'
                       )
                     }
@@ -357,7 +371,7 @@ export function Dropdown() {
                         {selected ? (
                           <span
                             className={classNames(
-                              active ? 'text-white' : 'text-red-600',
+                              active ? 'text-white' : 'text-primary',
                               'absolute inset-y-0 right-0 flex items-center pr-4'
                             )}
                           >

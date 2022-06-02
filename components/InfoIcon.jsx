@@ -15,7 +15,7 @@ export default function InfoIcon(props) {
     return (
 
        <div>
-<a onClick={() => setOpen(true)} href="#" className="text-red-600 hover:text-red-900">
+<a onClick={() => setOpen(true)} href="#" className="text-primary hover:text-primary-hover">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -72,7 +72,7 @@ export default function InfoIcon(props) {
                                     <a onClick={()=>{ alert('Dit is een functie voor in de toekomst!'); }}>
                                         <button
                                        type="button"
-                                       className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                       className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium text-white hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                                        onClick={() => setOpen(false)}
                                    >
                                        <MapIcon className="h-6 w-5 " aria-hidden="true"/>&nbsp;&nbsp; Kaart bekijken

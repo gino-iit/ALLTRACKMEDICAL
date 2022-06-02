@@ -14,12 +14,16 @@ export default class Overview extends React.Component {
         render() {
 
 // alert(info)
-// alert(cookieCutter.get('Locations'))
+// alert(Cookies.get('Locations').filter(obj => obj.LocationID == "449f6cf5-9f0c-11ec-945f-0602b2001534" ));
 
-var Locations = JSON.parse(Cookies.get('Locations'));
-var MaterialTypes = JSON.parse(Cookies.get('MaterialTypes'));
-var IdentifierTypes = JSON.parse(Cookies.get('IdentifierTypes'));
-var Processes = JSON.parse(Cookies.get('Processes'));
+// console.log(Cookies.getItem('Locations'));
+console.log("AAAH");
+var Locations = JSON.parse(JSON.parse(JSON.stringify(localStorage.getItem('Locations'))));
+
+// console.log(locations);
+var MaterialTypes = JSON.parse(localStorage.getItem('MaterialTypes'));
+var IdentifierTypes = JSON.parse(localStorage.getItem('IdentifierTypes'));
+var Processes = JSON.parse(localStorage.getItem('Processes'));
 
 // alert(JSON.stringify(MaterialTypes))
 

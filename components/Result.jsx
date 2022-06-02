@@ -69,7 +69,8 @@ export default function Results() {
         if (resultDetails != undefined) {
           // alert("Aihnoo");
           // alert(resultDetails);
-  
+
+
           var parsed = JSON.parse(resultDetails);
           // alert(parsed.Name)
           // alert(parsed.MaterialTypeID);
@@ -94,6 +95,7 @@ export default function Results() {
       setEmptyResult(false);
   
       event.preventDefault();
+
       var result = JSON.parse(
         await Bed(event.target.ultimo.value, user.sessionID)
       ).data;
@@ -186,13 +188,13 @@ export default function Results() {
                 placeholder="Bijv. 88366..."
                 name="ultimo"
                 required
-                className="focus:ring-red-600 focus:border-red-600 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
+                className="focus:ring-primary focus:border-primary block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
               />
             </div>
           </div>
           <button
             type="submit"
-            className="font-bold mt-5 w-full h-12 px-4 text-lg text-white transition-colors duration-150 bg-red-600 rounded-lg focus:shadow-outline hover:bg-red-700"
+            className="font-bold mt-5 w-full h-12 px-4 text-lg text-white transition-colors duration-150 bg-primary rounded-lg focus:shadow-outline hover:bg-primary-hover"
             // onClick={() => setOpen(true)}
           >
             Zoeken

@@ -9,10 +9,10 @@ module.exports = {
       colors: {
         // Configure your color palette here
         primary: {
-          DEFAULT: '#45B7C3',
-          hover: '#2f8a94',
-          light: '#2dd4bf',
-          lightest: '#f0fdfa',
+          DEFAULT: '#9d1e1e',
+          hover: '#691414',
+          light: 'rgba(183,91,91,0.4)',
+          lightest: 'rgba(183,91,91,0.15)',
         },
         white: '#FFFFFF',
         background: 'rgb(229, 231, 235)'
