@@ -9,7 +9,7 @@ import redis from '../lib/connections/redis';
 
 // import '@headlessui/react'
 
-export default function Home({data, User}) {
+export default function Home({User}) {
   const { user } = useUser({
     redirectTo: '/login',
   })
