@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Lottie from "react-lottie";
 import animationData from "../lottie/empty.json";
 import Alert from "../components/Alert";
@@ -10,6 +10,10 @@ import useUser from "lib/useUser";
 import Overview from "../components/Overview";
 import axios from "axios";
 import Result from "components/Result"
+
+
+
+
 
 
 function deleteAllCookies() {
@@ -32,13 +36,45 @@ function deleteAllCookies() {
   }
   
 
-export default function Results() {
-    const [searchResult, setSearchResult] = useState(false);
+export default function Results({res}) {
+  const [searchResult, setSearchResult] = useState(false);
     const [emptyResult, setEmptyResult] = useState(null);
     const [resultDetails, setResultDetails] = useState(null);
     const [searchField, setSearchField] = useState("");
+    const [InputValue, setInputValue] = useState("");
+    const [materialTypes, setmaterialTypes] = useState(null);
+    const [materialTypesShow, setmaterialTypesShow] = useState(false);
+
+        useEffect(() => {
+            if (typeof window !== "undefined") {
+
+                setmaterialTypes(localStorage.getItem("MaterialTypes"));
+                
+                }           });
+
+
+
+    // useEffect(() => {
+    //   // Perform localStorage action
+    //   if (typeof window !== 'undefined') {
+    //     setmaterialTypes(localStorage.getItem("MaterialTypes"));
+    //   };
+    //   console.log('materialTypes');
+    //   console.log(materialTypes);
+    //   console.log('localStorage');
+
+    //   console.log(localStorage.getItem("MaterialTypes"));
+    
+    // }, [])
+
+    // console.log('materialTypes2');
+
+    // console.log(materialTypes);
+
+
+// [{"Name":"kip"}]
     const [searchShow, setSearchShow] = useState(false);
-  
+    
     const defaultOptions = {
       loop: true,
       autoplay: true,
@@ -49,12 +85,57 @@ export default function Results() {
     };
     const router = useRouter();
   
+
+    const getInputValue = (event)=>{
+      // show the user input value to console
+      const userValue = event.target.value;
+
+      if (InputValue != "") {
+        setInputValue(true)
+      } else {
+        setInputValue(false)
+      }
+      setInputValue(event.target.value);
+
+
+  };
+  
     // Redirect
     const { user } = useUser({
       redirectTo: "/login",
     });
   
+
+
+
+// useEffect(() => {
+
+//   console.log(y);
+  
+//   var data = localStorage.getItem("MaterialTypes");
+//   if (data === undefined){
+//     console.log("undefined!!!")
+//   } else {
+//     console.log(data)
+//     // setmaterialTypes(data);
+//     // console.log(materialTypes)
+//     console.log('y');
+//     y = data;
+
+// console.log(y);
+
+
+//   }
+
+
+
+// setmaterialTypesShow(true);
+
+// return () => { y = data };
+// }, [y]);
+
     function searchList() {
+
       if (emptyResult) {
         return (
           <div className="my-12">
@@ -153,7 +234,19 @@ export default function Results() {
       }
       // alert(`So your name is ${event.target.ultimo.value}?`);
     };
-  
+    // var materialTypes = [{"name": "Abi"}, {"name": "Kip"}, {"name": "Kalf"}];
+
+
+    // const getFromStorage = (key) => {
+    //   if(typeof window !== 'undefined'){
+    //        window.localstorage.getItem(key)
+    //   }
+    //   }
+
+    // var materialTypes = getFromStorage("MaterialTypes");
+
+
+    // setmaterialTypes(y);
     return (
       <form onSubmit={submitContact}>
         {/*className="px-4 py-4"*/}
@@ -184,12 +277,68 @@ export default function Results() {
                 </svg>
               </div>
               <input
-                type="number"
-                placeholder="Bijv. 88366..."
+                type="text"
+                placeholder="Bijv. tillift, infuuspomp"
                 name="ultimo"
                 required
+                onChange={getInputValue}
                 className="focus:ring-primary focus:border-primary block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
               />
+
+
+{InputValue &&
+<ul class="absolute transition ease-in-out z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm" tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
+
+{/* { materialTypes && JSON.parse(materialTypes).map(x=>x.Name)} */}
+
+
+{materialTypes && JSON.parse(materialTypes).filter((z) => z.Name.toLowerCase().includes(InputValue.toLowerCase())).map(x => 
+
+<li class="transition ease-in-out text-gray-900 hover:bg-primary hover:text-white hover:font-extrabold cursor-pointer select-none relative py-2 pl-3 pr-9" id="listbox-option-0" role="option">
+<div class="flex items-center">
+  <img src="https://www.svgrepo.com/show/20306/hospital.svg" alt="" class="flex-shrink-0 h-6 w-6 rounded-full"/>
+  <a href={"/category/" + x.MaterialTypeID} class="font-normal ml-3 block truncate"> {x.Name} </a>
+</div>
+
+
+
+
+<span class="text-white absolute inset-y-0 right-0 flex items-center pr-4">
+  <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+  </svg>
+</span>
+</li>
+)}
+
+
+    </ul>
+  }
+{/* {materialTypes && materialTypes.map((item, index) => (<a>{item.name}</a>))} */}
+{/* {materialTypes && materialTypes.map(x => x.name)} */}
+
+{/* {materialTypes !== "undefined" && } */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </div>
           </div>
           <button
@@ -200,9 +349,85 @@ export default function Results() {
             Zoeken
           </button>
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+      
+
+
+
+
+
           <div className="mt-8">{searchList()}</div>
         </section>
       </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     );
   }
   
+
+
+
+  export async function getServerSideProps() {
+    // Fetch data from external API
+    var session = "session=" + ""
+    var res = await fetchJson('http://asz-assets.test.improvement-it.nl/material-types/get', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', "Cookie": session },
+        body: JSON.stringify({}),
+      })
+
+      console.log(res);
+    // Pass data to the page via props
+    return { props: { res } }
+
+  }
