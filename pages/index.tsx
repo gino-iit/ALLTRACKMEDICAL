@@ -1,7 +1,7 @@
 import Layout from 'components/Layout'
 import Image from 'next/image'
 import React from "react";
-import {SearchIcon, CameraIcon} from '@heroicons/react/outline'
+import { SearchIcon, CameraIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import useUser from 'lib/useUser';
 import * as cookie from 'cookie'
@@ -9,7 +9,7 @@ import redis from '../lib/connections/redis';
 
 // import '@headlessui/react'
 
-export default function Home({User} : { User: any}) {
+export default function Home({ User }: { User: any }) {
   const { user } = useUser({
     redirectTo: '/login',
   })
@@ -21,55 +21,130 @@ export default function Home({User} : { User: any}) {
 
 
 
-    <div className="   mx-auto">
-      
-      <nav className="space-y-4" aria-label="Sidebar">
-        
-      <h1 className="text-3xl font-bold leading-normal mb-6">Welkom{User && <a className="text-3xl font-light leading-normal mb-6">, {User.Username}</a>}</h1>
+        <div className="   mx-auto">
+
+          <nav className="space-y-4" aria-label="Sidebar">
+
+            <h1 className="text-3xl font-bold leading-normal">Welkom{User && <a className="text-3xl font-light leading-normal">, {User.Username}</a>}</h1>
+            {/* <h3 className="text-xl font-light leading-normal mb-6">Waar kunnen we je mee helpen?</h3> */}
             {/* Current: "bg-gray-200 text-gray-900", Default: "text-gray-700 hover:bg-gray-50 hover:text-gray-900" */}
-            <a href="/scan" className="border bg-white px-6 py-4 border-gray-200 group text-gray-900 flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page">
-              {/* Current: "text-gray-600", Default: "text-gray-400" */}
-              <svg className="group-hover:text-white transition duration-300 ease-in-out text-gray-600 flex-shrink-0 -ml-1 mr-3 h-6 w-6" data-todo-x-description="Heroicon name: home" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <CameraIcon/>
-    </svg>
-              <span className="truncate group-hover:text-white transition duration-300 ease-in-out">
-                Scannen
-              </span>
-              
-                {/* Current: "bg-gray-50", Default: "bg-gray-200 text-gray-700" */}
-                {/* <span className="bg-gray-50 ml-auto inline-block py-0.5 px-3 text-xs rounded-full">
-                  5
-                </span> */}
-              </a>
+
+            <ul className="divide-y divide-gray-200">
+
+              {/* 1 */}
+            <div>
+                <Link href="/scan" >
+
+                  {/* <a href={"/category/" + item.MaterialTypeID + "/" + item.MaterialItemID} className="flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page"> */}
+                  <div href="/asfa" className="cursor-pointer flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page">
+
+                    <li className="py-4 flex">
+                      {/* <img src="https://www.svgrepo.com/show/20306/hospital.svg" alt="" class="flex-shrink-0 h-6 w-6 rounded-full"/> */}
+
+                      {/* <img className="h-8 w-8 m-auto my-auto" src="https://www.svgrepo.com/show/20306/hospital.svg" alt=""/> */}
+                      <CameraIcon className="h-8 w-8 m-auto my-auto" />
+
+                      <div className="ml-3">
+                        <p className="text-sm group-hover:text-white font-medium text-gray-900">Scannen </p>
+                        <p className="text-sm group-hover:text-white font-light text-gray-500"> Voeg een asset toe</p>
+                      </div>
+                    </li>
+
+                  </div>
+
+                </Link>
+
+                {/* <SearchIcon /> */}
 
 
 
-              <a href="/search" className="border bg-white px-6 py-4 border-gray-200 group text-gray-900 flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page">
-              {/* Current: "text-gray-600", Default: "text-gray-400" */}
-              <svg className="group-hover:text-white transition duration-300 ease-in-out text-gray-600 flex-shrink-0 -ml-1 mr-3 h-6 w-6" data-todo-x-description="Heroicon name: home" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <SearchIcon/>
-    </svg>
-              <span className="truncate group-hover:text-white transition duration-300 ease-in-out">
-                Zoeken
-              </span>
-              
-                {/* Current: "bg-gray-50", Default: "bg-gray-200 text-gray-700" */}
-                {/* <span className="bg-gray-50 ml-auto inline-block py-0.5 px-3 text-xs rounded-full">
-                  5
-                </span> */}
-              </a>
-          
-          
-            
-          
-      </nav>
-    
+              </div>
+
+
+{/* 2 */}
+
+<div>
+                <Link href="/search" >
+
+                  {/* <a href={"/category/" + item.MaterialTypeID + "/" + item.MaterialItemID} className="flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page"> */}
+                  <div className="cursor-pointer flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page">
+
+                    <li className="py-4 flex">
+                      {/* <img src="https://www.svgrepo.com/show/20306/hospital.svg" alt="" class="flex-shrink-0 h-6 w-6 rounded-full"/> */}
+
+                      {/* <img className="h-8 w-8 m-auto my-auto" src="https://www.svgrepo.com/show/20306/hospital.svg" alt=""/> */}
+                      <SearchIcon className="h-8 w-8 m-auto my-auto" />
+
+                      <div className="ml-3">
+                        <p className="text-sm group-hover:text-white font-medium text-gray-900">Zoeken </p>
+                        <p className="text-sm group-hover:text-white font-light text-gray-500"> Zoek direct naar je hulpmiddel</p>
+                      </div>
+                    </li>
+
+                  </div>
+
+                </Link>
+
+
+
+
+              </div>
+
+
+
+
+
+
+
+              <div>
+                <Link href="/favorites" >
+
+                  {/* <a href={"/category/" + item.MaterialTypeID + "/" + item.MaterialItemID} className="flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page"> */}
+                  <div  className="cursor-pointer flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page">
+
+                    <li className="py-4 flex">
+                      {/* <img src="https://www.svgrepo.com/show/20306/hospital.svg" alt="" class="flex-shrink-0 h-6 w-6 rounded-full"/> */}
+
+                      {/* <img className="h-8 w-8 m-auto my-auto" src="https://www.svgrepo.com/show/20306/hospital.svg" alt=""/> */}
+                      <img src="https://www.svgrepo.com/show/5127/star.svg" className="h-8 w-8 m-auto my-auto" />
+
+                      <div className="ml-3">
+                        <p className="text-sm group-hover:text-white font-medium text-gray-900">Favorieten </p>
+                        <p className="text-sm group-hover:text-white font-light text-gray-500"> Toegang tot je opgeslagen items</p>
+                      </div>
+                    </li>
+
+                  </div>
+
+                </Link>
+
+
+
+
+              </div>
+
+
+            </ul>
+
+
+
+
+
+
+
+        
+
+
+
+
+          </nav>
+
         </div>
 
 
 
 
-{/* 
+        {/* 
 
     <div className="grid grid-cols-2 space-x-4">
 
@@ -103,7 +178,7 @@ export default function Home({User} : { User: any}) {
     </div> */}
 
 
-    </div>
+      </div>
     </Layout>
   )
 }
@@ -119,40 +194,40 @@ export async function getServerSideProps(context: { req: { headers: { cookie: st
   // console.log(context);
 
 
-    try {
-      const cookies = cookie.parse(context.req.headers.cookie);
-      // console.log(cookies.User);
-      const loggedIn =  cookies.userSession ? true : false;
-  
-      // console.log(loggedIn);
-  
-      if (!loggedIn){
-        context.res.statusCode = 302
-        context.res.setHeader('Location', `/logout`) // Replace <link> with your url link
-        return {props: {}}
-      }
-    
+  try {
+    const cookies = cookie.parse(context.req.headers.cookie);
+    // console.log(cookies.User);
+    const loggedIn = cookies.userSession ? true : false;
+
+    // console.log(loggedIn);
+
+    if (!loggedIn) {
+      context.res.statusCode = 302
+      context.res.setHeader('Location', `/logout`) // Replace <link> with your url link
+      return { props: {} }
+    }
+
     // var data = JSON.parse(await redis.get('AA'))
     // r.set('int', 1)
     const User = JSON.parse(cookies.User);
-    
+
     // redis.incr('int');
     // console.log(await redis.get('int'))
     // console.log(await r.get('AA'))
     // console.log(cookie.parse(context.req.headers.cookie))
     //['iron-session/examples/next.js']
-      // Pass data to the page via propsspo
-      return { props: { User } }
-    } catch (error) {
-      // console.log(error.message)
-      context.res.statusCode = 302
-      context.res.setHeader('Location', `/login`) // Replace <link> with your url link
-      return {props: {}}
-    }
-
-
+    // Pass data to the page via propsspo
+    return { props: { User } }
+  } catch (error) {
+    // console.log(error.message)
+    context.res.statusCode = 302
+    context.res.setHeader('Location', `/login`) // Replace <link> with your url link
+    return { props: {} }
   }
- 
+
+
+}
+
 
 
 

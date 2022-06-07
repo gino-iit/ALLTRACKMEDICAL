@@ -11,7 +11,7 @@ import Overview from "../components/Overview";
 import axios from "axios";
 import Result from "components/Result"
 import fetchJson from "lib/fetchJson";
-
+import Link from "next/link";
 
 
 
@@ -27,7 +27,7 @@ function deleteAllCookies() {
     }
   }
   
-  async function Bed(ultimo, sessionid) {
+  async function Bed(ultimo: number, sessionid: string) {
     const data = await axios.post("/api/search_bed", {
       ultimo: ultimo,
       sessionid: sessionid,
@@ -37,7 +37,7 @@ function deleteAllCookies() {
   }
   
 
-export default function Results({res}) {
+export default function Results({}) {
   const [searchResult, setSearchResult] = useState(false);
     const [emptyResult, setEmptyResult] = useState(null);
     const [resultDetails, setResultDetails] = useState(null);
@@ -295,12 +295,14 @@ export default function Results({res}) {
 {/* { materialTypes && JSON.parse(materialTypes).map(x=>x.Name)} */}
 
 
-{materialTypes && JSON.parse(materialTypes).filter((z) => z.Name.toLowerCase().includes(InputValue.toLowerCase())).map(x => 
+{materialTypes ? JSON.parse(materialTypes).filter((z) => z.Name.toLowerCase().includes(InputValue.toLowerCase())).map(x => 
+
+
 
 <li class="transition ease-in-out text-gray-900 hover:bg-primary hover:text-white hover:font-extrabold cursor-pointer select-none relative py-2 pl-3 pr-9" id="listbox-option-0" role="option">
 <div class="flex items-center">
-  <img src="https://www.svgrepo.com/show/20306/hospital.svg" alt="" class="flex-shrink-0 h-6 w-6 rounded-full"/>
-  <a href={"/category/" + x.MaterialTypeID} class="font-normal ml-3 block truncate"> {x.Name} </a>
+  {/* <img src="https://www.svgrepo.com/show/20306/hospital.svg" alt="" class="flex-shrink-0 h-6 w-6 rounded-full"/> */}
+  <Link href={"/category/" + x.MaterialTypeID}><span  class="font-normal ml-3 block truncate"> {x.Name} </span></Link>
 </div>
 
 
@@ -312,11 +314,18 @@ export default function Results({res}) {
   </svg>
 </span>
 </li>
-)}
+)
+:
+<>
 
+{materialTypes.length == 0 && <a>test!</a>}
 
-    </ul>
+</>
+
+  
   }
+  </ul>
+}
 {/* {materialTypes && materialTypes.map((item, index) => (<a>{item.name}</a>))} */}
 {/* {materialTypes && materialTypes.map(x => x.name)} */}
 
@@ -428,6 +437,9 @@ export default function Results({res}) {
         headers: { 'Content-Type': 'application/json', "Cookie": session },
         body: JSON.stringify({}),
       })
+
+
+
 
       console.log(res);
     // Pass data to the page via props

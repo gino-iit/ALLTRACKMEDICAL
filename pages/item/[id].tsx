@@ -8,10 +8,10 @@ import { InferGetServerSidePropsType } from 'next'
 import fetchJson from 'lib/fetchJson'
 import moment from "moment";
 import 'moment/locale/nl';
-import Link from 'next/link';
+import OverviewDetails from 'components/OverviewDetails'
 
 export default function SsrProfile({
-  user, data
+  user, item
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
       <>
@@ -21,46 +21,12 @@ export default function SsrProfile({
 <div className="md:px-48 mt-5 md:mt-12 mb-5 px-5 ">
 <link rel="stylesheet" href="https://tailwindui.com/css/components-v2.css"/>
 
-    <h1 className="text-3xl font-bold leading-normal">{data && data[0]?.MaterialTypeName}</h1>
-    {data[0]?.MaterialTypeName ? 
-    <h3 className="text-xl font-light leading-normal mb-6">Welke heb je precies nodig{user?.isLoggedIn && (
-        <>
-          <b className="font-bold">, {user.login}
-             
-            </b>
-            
-        </>
-      )}?</h3>
-      : (<>
-      <h1 className="text-3xl font-bold leading-normal">Dit is een lege categorie...</h1><h3 className="text-xl font-light leading-normal mb-6">Neem contact op met het systeembeheer op assets toe te voegen.</h3></>)
-      
-      }
+    <h1 className="text-3xl font-bold leading-normal">{item && <span>{item.MaterialTypeName}</span>}</h1>
+    <h3 className="text-xl font-light leading-normal mb-6"># {item.Name}</h3>
 
 
+<OverviewDetails Name={item.Name} MaterialTypeID={item.MaterialTypeName} LocationName={item.LocationName} LastModified={item.LastModified} RSSI={item.RSSI}/>
 
-  <ul className="divide-y divide-gray-200">
-    {data && data.map((item, index) => (
-        
-<Link href={"/item/" + item.MaterialItemID}>
-
-
-{/* <a href={"/category/" + item.MaterialTypeID + "/" + item.MaterialItemID} className="flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page"> */}
-<div  className="flex cursor-pointer border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page">
-
-<li className="py-4 flex">
-{/* <img src="https://www.svgrepo.com/show/20306/hospital.svg" alt="" class="flex-shrink-0 h-6 w-6 rounded-full"/> */}
-
-<img className="h-8 w-8 m-auto my-auto" src="https://www.svgrepo.com/show/20306/hospital.svg" alt=""/>
-<div className="ml-3">
-<p className="text-sm group-hover:text-white font-medium text-gray-900">{item.MaterialTypeName} # {item.Name}, </p>
-<p className="text-sm group-hover:text-white font-light text-gray-500"> Laatst gezien op adeling {item.LocationName}, {moment(item.KLstSeen).locale('nl').startOf('day').fromNow()}</p>
-</div>
-</li>        </div>
-
-</Link>
-
-))}
-  </ul>
 
  
   </div>
@@ -74,50 +40,47 @@ export default function SsrProfile({
   )
 }
 
-
 export const getServerSideProps = withIronSessionSsr(async function ({
-    req,
-    res,
-    query
-  }) {
-    const user = req.session.user
-  
-    if (user === undefined) {
-      res.setHeader('location', '/login')
-      res.statusCode = 302
-      res.end()
-      return {
-        props: {
-          user: { isLoggedIn: false, login: '', sessionID: '' } as User,
-        },
-      }
-    }
-  
-  
-    console.log(query.id)
-  
-  
-  
-      var session = "session=" + req.session.user?.sessionID; //+ cookie.parse(context.req.headers.cookie.userSession);
-  
-          var data = await fetchJson('http://localhost:3000/api/material_types', {
-            method: 'POST',
-            headers: {         'Content-Type': 'application/json;charset=UTF-8', "Cookie": session, "User-Agent": "PDA"        },
-            body: JSON.stringify({"session": req.session.user?.sessionID, "Name": String(query.id)}),
-          })
-  
-  
-  
-          data = data.data.map(x => x) .filter(data => data.MaterialTypeID == query.id)
-  
-          
-  
+  req,
+  res,
+  query
+}) {
+  const user = req.session.user
+
+  if (user === undefined) {
+    res.setHeader('location', '/login')
+    res.statusCode = 302
+    res.end()
     return {
-      props: { user: req.session.user, data: data },
+      props: {
+        user: { isLoggedIn: false, login: '', sessionID: '' } as User,
+      },
     }
-  },
-  sessionOptions)
-  
+  }
+
+
+  console.log(query.id)
+
+
+
+    var session = "session=" + req.session.user?.sessionID; //+ cookie.parse(context.req.headers.cookie.userSession);
+
+        var data = await fetchJson('http://localhost:3000/api/material_types', {
+          method: 'POST',
+          headers: {         'Content-Type': 'application/json;charset=UTF-8', "Cookie": session, "User-Agent": "PDA"        },
+          body: JSON.stringify({"session": req.session.user?.sessionID, "Name": String(query.id)}),
+        })
+
+
+        data = data.data.map(x => x) .filter(data => data.MaterialItemID == query.id)[0]
+
+
+
+  return {
+    props: { user: req.session.user, item: data },
+  }
+},
+sessionOptions)
 
 
 

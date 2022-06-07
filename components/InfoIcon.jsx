@@ -62,7 +62,7 @@ export default function InfoIcon(props) {
                                            </Dialog.Title>
                                            <div className="mt-2">
                                                <p className="text-sm text-gray-500">
-                                               Bed nummer {props.id} ligt op de afdeling {props.location} en heeft materiaaltype {props.role}.
+                                               {props.MaterialTypeName} # {props.id} ligt op de afdeling {props.LocationName}.
                                                </p>
                                            </div>
                                        </div>

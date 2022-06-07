@@ -64,22 +64,18 @@ export function HeaderNav() {
                   /> */}
                   {/* <a className="text-xl text-white">FindMyAssets</a> */}
                   {/* <img className="max-h-8" src={clientUrl}/> */}
-                  <a className="text-xl text-white">{client}</a>
+                  <Link href="/" className="text-xl font-bold text-white"><a className="text-white font-bold mx-auto my-auto text-xl">{client}</a></Link>
                 </div>
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <Link href={item.href}>
-                      <a
-                        key={item.name}
-                        className={classNames(
-                          item.current ? 'bg-secondary text-white' : 'text-white hover:bg-primary-hover transition hover:text-white',
-                          'px-3 py-2 rounded-md text-sm font-medium'
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
-                      >
+                      <Link href={item.href}                 className={classNames(
+                        item.current ? 'bg-secondary text-white' : 'text-white hover:bg-primary-hover transition hover:text-white',
+                        'px-3 py-2 rounded-md text-sm font-medium'
+                      )}>
+          
                         {item.name}
-                      </a>
+
                       </Link>
                     ))}
                   </div>

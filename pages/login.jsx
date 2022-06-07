@@ -47,8 +47,9 @@ export default function Login() {
           localStorage.setItem('MaterialTypes', JSON.stringify(code.response.MaterialTypes));
           localStorage.setItem('IdentifierTypes', JSON.stringify(code.response.IdentifierTypes));
           localStorage.setItem('Processes', JSON.stringify(code.response.Processes));
-          localStorage.setItem('User', JSON.stringify({"Username": code.response.user.Username}));
-          mutateUser(code.response.user)
+          // localStorage.setItem('User', JSON.stringify({"Username": code.response.user.Username}));
+          mutateUser(code.response.user);
+
 // {isLoggedIn: true, login: "gino", sessionID: "4hq0iel8bv70hvt7t1dcdhojpb5k0i73"}
         } catch (error) {
           if (error instanceof FetchError) {
@@ -89,6 +90,8 @@ export default function Login() {
     <Layout>
   <div className="md:px-48 mt-5 md:mt-12 mb-5 px-5 ">
   <h1 className="text-3xl text-center font-bold leading-normal mb-6">Login</h1>
+
+  <img className="mx-auto max-h-24 mix-blend-multiply" src="https://www.wzuveluwe.nl/wp-content/themes/woonzorg-unie-veluwe/images/logo-wzuveluwe.png" />
        <form onSubmit={formik.handleSubmit}>
            <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
 
@@ -142,7 +145,7 @@ export default function Login() {
                           className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                       >
                           <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                                <LockClosedIcon className="h-5 w-5 text-primary group-hover:text-primary" aria-hidden="true"/>
+                                <LockClosedIcon className="h-5 w-5 text-secondary group-hover:text-white" aria-hidden="true"/>
                            </span>
                           Inloggen
                       </button>
@@ -320,76 +323,76 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export function Dropdown() {
-  const [selected, setSelected] = useState(instances[1])
+// export function Dropdown() {
+//   const [selected, setSelected] = useState(instances[1])
 
-  return (
-    <Listbox value={selected} onChange={setSelected}>
-      {({ open }) => (
-        <>
-          <div className="mt-1 relative">
-            <Listbox.Button className="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-primary-light focus:border-primary-light sm:text-sm">
-              <span className="flex items-center">
-                <img src={selected.avatar} alt="" className="flex-shrink-0 h-6 w-6 rounded-full" />
-                <span className="ml-3 block truncate">{selected.name}</span>
-              </span>
-              <span className="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-              </span>
-            </Listbox.Button>
+//   return (
+//     <Listbox value={selected} onChange={setSelected}>
+//       {({ open }) => (
+//         <>
+//           <div className="mt-1 relative">
+//             <Listbox.Button className="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-primary-light focus:border-primary-light sm:text-sm">
+//               <span className="flex items-center">
+//                 <img src={selected.avatar} alt="" className="flex-shrink-0 h-6 w-6 rounded-full" />
+//                 <span className="ml-3 block truncate">{selected.name}</span>
+//               </span>
+//               <span className="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+//                 <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+//               </span>
+//             </Listbox.Button>
 
-            <Transition
-              show={open}
-              as={Fragment}
-              leave="transition ease-in duration-100"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-                {instances.map((person) => (
-                  <Listbox.Option
-                    key={person.id}
-                    className={({ active }) =>
-                      classNames(
-                        active ? 'text-white bg-primary' : 'text-gray-900',
-                        'cursor-default select-none relative py-2 pl-3 pr-9'
-                      )
-                    }
-                    value={person}
-                  >
-                    {({ selected, active }) => (
-                      <>
-                        <div className="flex items-center">
-                          <img src={person.avatar} alt="" className="flex-shrink-0 h-6 w-6 rounded-full" />
-                          <span
-                            className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')}
-                          >
-                            {person.name}
-                          </span>
-                        </div>
+//             <Transition
+//               show={open}
+//               as={Fragment}
+//               leave="transition ease-in duration-100"
+//               leaveFrom="opacity-100"
+//               leaveTo="opacity-0"
+//             >
+//               <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+//                 {instances.map((person) => (
+//                   <Listbox.Option
+//                     key={person.id}
+//                     className={({ active }) =>
+//                       classNames(
+//                         active ? 'text-white bg-primary' : 'text-gray-900',
+//                         'cursor-default select-none relative py-2 pl-3 pr-9'
+//                       )
+//                     }
+//                     value={person}
+//                   >
+//                     {({ selected, active }) => (
+//                       <>
+//                         <div className="flex items-center">
+//                           <img src={person.avatar} alt="" className="flex-shrink-0 h-6 w-6 rounded-full" />
+//                           <span
+//                             className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')}
+//                           >
+//                             {person.name}
+//                           </span>
+//                         </div>
 
-                        {selected ? (
-                          <span
-                            className={classNames(
-                              active ? 'text-white' : 'text-primary',
-                              'absolute inset-y-0 right-0 flex items-center pr-4'
-                            )}
-                          >
-                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                          </span>
-                        ) : null}
-                      </>
-                    )}
-                  </Listbox.Option>
-                ))}
-              </Listbox.Options>
-            </Transition>
-          </div>
-        </>
-      )}
-    </Listbox>
-  )
-}
+//                         {selected ? (
+//                           <span
+//                             className={classNames(
+//                               active ? 'text-white' : 'text-primary',
+//                               'absolute inset-y-0 right-0 flex items-center pr-4'
+//                             )}
+//                           >
+//                             <CheckIcon className="h-5 w-5" aria-hidden="true" />
+//                           </span>
+//                         ) : null}
+//                       </>
+//                     )}
+//                   </Listbox.Option>
+//                 ))}
+//               </Listbox.Options>
+//             </Transition>
+//           </div>
+//         </>
+//       )}
+//     </Listbox>
+//   )
+// }
 
 
 
