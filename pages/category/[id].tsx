@@ -47,18 +47,18 @@ export default function Home({res}) {
 
 
       <div className="md:px-48 mt-5 md:mt-12 mb-5 px-5 ">
-    <h1 className="text-3xl font-bold leading-normal mb-6">{res.data.filter(obj => obj.MaterialTypeID == id)[0].MaterialTypeName} <br/><span className='font-light'>{res.data.filter(obj => obj.MaterialTypeID == id)[0].LocationName}</span></h1>
+    <h1 className="text-3xl font-bold leading-normal mb-6">{res.data.filter((obj: { MaterialTypeID: string | string[] | undefined; }) => obj.MaterialTypeID == id)[0].MaterialTypeName} <br/><span className='font-light'>{res.data.filter((obj: { MaterialTypeID: string | string[] | undefined; }) => obj.MaterialTypeID == id)[0].LocationName}</span></h1>
 
 
 
 
 
 
-{res.data.filter(obj => obj.MaterialTypeID == id)[0].Name}
-{res.data.filter(obj => obj.MaterialTypeID == id)[0].LocationName}
+{res.data.filter((obj: { MaterialTypeID: string | string[] | undefined; }) => obj.MaterialTypeID == id)[0].Name}
+{res.data.filter((obj: { MaterialTypeID: string | string[] | undefined; }) => obj.MaterialTypeID == id)[0].LocationName}
 
-{res.data.filter(obj => obj.MaterialTypeID == id)[0].MaterialTypeID}
-{res.data.filter(obj => obj.MaterialTypeID == id)[0].LastSeen}
+{res.data.filter((obj: { MaterialTypeID: string | string[] | undefined; }) => obj.MaterialTypeID == id)[0].MaterialTypeID}
+{res.data.filter((obj: { MaterialTypeID: string | string[] | undefined; }) => obj.MaterialTypeID == id)[0].LastSeen}
 
 
 
@@ -151,17 +151,19 @@ export default function Home({res}) {
 }
 
 
-  export async function getServerSideProps() {
-
+  export async function getServerSideProps(context: { req: { session: { user: any; }; }; }) {
+    const user = context.req.session.user;
+    console.log(user);
     // Fetch data from external API
-    var session = "session=" + "ocl3jvm3lm8977c9it6onmtvq5qm5l0u" //+ cookie.parse(context.req.headers.cookie.userSession);
-    var res = await fetchJson('http://asz-assets.test.improvement-it.nl/material-items/get', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json', "Cookie": session }
-      })
+    var session = "session=" + user.sessionID; //+ cookie.parse(context.req.headers.cookie.userSession);
+    // var res = await fetchJson('http://asz-assets.test.improvement-it.nl/material-items/get', {
+    //     method: 'GET',
+    //     headers: { 'Content-Type': 'application/json', "Cookie": session }
+    //   })
 
-    console.log(res);
-    // Pass data to the page via props
-    return { props: { res } }
+    // console.log(res);
+    // // Pass data to the page via props
+    // return { props: { res } }
+    return { props: {  } }
 
   }

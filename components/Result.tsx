@@ -10,6 +10,7 @@ import useUser from "lib/useUser";
 import Overview from "../components/Overview";
 import axios from "axios";
 import Result from "components/Result"
+import fetchJson from "lib/fetchJson";
 
 
 
@@ -50,7 +51,9 @@ export default function Results({res}) {
 
                 setmaterialTypes(localStorage.getItem("MaterialTypes"));
                 
-                }           });
+                }       
+              
+              });
 
 
 

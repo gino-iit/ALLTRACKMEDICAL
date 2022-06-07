@@ -15,25 +15,7 @@ import * as cookie from 'cookie'
 
 
 export default function Test() {
-    const [searchResult, setSearchResult] = useState(false);
-    const [emptyResult, setEmptyResult] = useState(null);
-    const [resultDetails, setResultDetails] = useState(null);
-    const [searchField, setSearchField] = useState("");
-    const [InputValue, setInputValue] = useState("");
-    const [materialTypes, setmaterialTypes] = useState(null);
-    const [materialTypesShow, setmaterialTypesShow] = useState(false);
-
-
-
-
-
-
-        useEffect(() => {
-            if (typeof window !== "undefined") {
-
-                setmaterialTypes(localStorage.getItem("MaterialTypes"));
-                
-                }           });
+    
         
 
 return(
