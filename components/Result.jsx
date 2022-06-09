@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Lottie from "react-lottie";
 import animationData from "../lottie/empty.json";
-import Alert from "../components/Alert";
+import Alert from "./Alert";
 import { Offline } from "react-detect-offline";
 import { useRouter } from "next/router";
 import "@heroicons/react/outline";
 import Layout from "components/Layout";
 import useUser from "lib/useUser";
-import Overview from "../components/Overview";
+import Overview from "./Overview";
 import axios from "axios";
 import Result from "components/Result"
 import fetchJson from "lib/fetchJson";
@@ -27,7 +27,7 @@ function deleteAllCookies() {
     }
   }
   
-  async function Bed(ultimo: number, sessionid: string) {
+  async function Bed(ultimo, sessionid) {
     const data = await axios.post("/api/search_bed", {
       ultimo: ultimo,
       sessionid: sessionid,
@@ -37,7 +37,7 @@ function deleteAllCookies() {
   }
   
 
-export default function Results({}) {
+export default function Results(props) {
   const [searchResult, setSearchResult] = useState(false);
     const [emptyResult, setEmptyResult] = useState(null);
     const [resultDetails, setResultDetails] = useState(null);
@@ -46,6 +46,12 @@ export default function Results({}) {
     const [materialTypes, setmaterialTypes] = useState(null);
     const [materialTypesShow, setmaterialTypesShow] = useState(false);
 
+
+    if (props.RenderButton) {
+      var renderButton = true;
+    } else {
+      var renderButton = false;
+    }
         useEffect(() => {
             if (typeof window !== "undefined") {
 
@@ -295,13 +301,13 @@ export default function Results({}) {
 {/* { materialTypes && JSON.parse(materialTypes).map(x=>x.Name)} */}
 
 
-{materialTypes ? JSON.parse(materialTypes).filter((z) => z.Name.toLowerCase().includes(InputValue.toLowerCase())).map(x => 
+{materialTypes ? JSON.parse(materialTypes).filter((z) => z.Name.toLowerCase().includes(InputValue.toLowerCase())).map((x) => 
 
 
 
 <li class="transition ease-in-out text-gray-900 hover:bg-primary hover:text-white hover:font-extrabold cursor-pointer select-none relative py-2 pl-3 pr-9" id="listbox-option-0" role="option">
 <div class="flex items-center">
-  {/* <img src="https://www.svgrepo.com/show/20306/hospital.svg" alt="" class="flex-shrink-0 h-6 w-6 rounded-full"/> */}
+  <img src="https://www.svgrepo.com/show/20306/hospital.svg" alt="" class="flex-shrink-0 h-6 w-6 rounded-full"/>
   <Link href={"/category/" + x.MaterialTypeID}><span  class="font-normal ml-3 block truncate"> {x.Name} </span></Link>
 </div>
 
@@ -353,13 +359,15 @@ export default function Results({}) {
 
             </div>
           </div>
-          <button
+          {renderButton && (
+            <button
             type="submit"
             className="font-bold mt-5 w-full h-12 px-4 text-lg text-white transition-colors duration-150 bg-primary rounded-lg focus:shadow-outline hover:bg-primary-hover"
             // onClick={() => setOpen(true)}
           >
             Zoeken
           </button>
+          )}
   
 
 
@@ -432,13 +440,16 @@ export default function Results({}) {
   export async function getServerSideProps() {
     // Fetch data from external API
     var session = "session=" + ""
-    var res = await fetchJson('http://asz-assets.test.improvement-it.nl/material-types/get', {
+    var res = await fetchJson(process.env.BASE_URL +'/material-types/get', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', "Cookie": session },
         body: JSON.stringify({}),
       })
 
-
+      // const data = await axios.post("/api/search_bed", {
+      //   ultimo: ultimo,
+      //   sessionid: sessionid,
+      // });
 
 
       console.log(res);

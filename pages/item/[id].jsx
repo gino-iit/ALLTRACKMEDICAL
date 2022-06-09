@@ -12,7 +12,7 @@ import OverviewDetails from 'components/OverviewDetails'
 
 export default function SsrProfile({
   user, item
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+}) {
   return (
       <>
     <Layout>
@@ -53,7 +53,7 @@ export const getServerSideProps = withIronSessionSsr(async function ({
     res.end()
     return {
       props: {
-        user: { isLoggedIn: false, login: '', sessionID: '' } as User,
+        user: { isLoggedIn: false, login: '', sessionID: '' },
       },
     }
   }
@@ -65,7 +65,7 @@ export const getServerSideProps = withIronSessionSsr(async function ({
 
     var session = "session=" + req.session.user?.sessionID; //+ cookie.parse(context.req.headers.cookie.userSession);
 
-        var data = await fetchJson('http://localhost:3000/api/material_types', {
+        var data = await fetchJson(process.env.BASE_URL + 'api/material_types', {
           method: 'POST',
           headers: {         'Content-Type': 'application/json;charset=UTF-8', "Cookie": session, "User-Agent": "PDA"        },
           body: JSON.stringify({"session": req.session.user?.sessionID, "Name": String(query.id)}),

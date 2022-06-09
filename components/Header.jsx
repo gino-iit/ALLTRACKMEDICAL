@@ -69,13 +69,15 @@ export function HeaderNav() {
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <Link href={item.href}                 className={classNames(
-                        item.current ? 'bg-secondary text-white' : 'text-white hover:bg-primary-hover transition hover:text-white',
+                      <Link href={item.href}>
+                        <span                  className={classNames(
+                        item.current ? ' cursor-pointer bg-secondary text-white' : 'text-white cursor-pointer hover:bg-primary-hover transition hover:text-white',
                         'px-3 py-2 rounded-md text-sm font-medium'
                       )}>
           
                         {item.name}
 
+                      </span>
                       </Link>
                     ))}
                   </div>

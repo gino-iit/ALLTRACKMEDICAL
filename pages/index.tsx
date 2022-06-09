@@ -6,6 +6,8 @@ import Link from 'next/link'
 import useUser from 'lib/useUser';
 import * as cookie from 'cookie'
 import redis from '../lib/connections/redis';
+import Search from './search';
+import Result from 'components/Result';
 
 // import '@headlessui/react'
 
@@ -17,26 +19,32 @@ export default function Home({ User }: { User: any }) {
     <Layout>
 
       <div className="md:px-48 mt-5 md:mt-12 mb-5 px-5 ">
-
-
-
-
         <div className="   mx-auto">
-
           <nav className="space-y-4" aria-label="Sidebar">
 
-            <h1 className="text-3xl font-bold leading-normal">Welkom{User && <a className="text-3xl font-light leading-normal">, {User.Username}</a>}</h1>
+                <h1 className="text-3xl font-bold leading-normal -mb-4">Welkom{User && <a className="text-3xl font-light leading-normal">, {User.Username}</a>}</h1>
+    <h3 className="text-xl font-light leading-normal mb-6">Waar kunnen we je mee helpen?</h3>
+
+
+<Result/>
+            {/* // <h1 className="text-3xl font-bold leading-normal">Welkom{User && <a className="text-3xl font-light leading-normal">, {User.Username}</a>}</h1> */}
             {/* <h3 className="text-xl font-light leading-normal mb-6">Waar kunnen we je mee helpen?</h3> */}
             {/* Current: "bg-gray-200 text-gray-900", Default: "text-gray-700 hover:bg-gray-50 hover:text-gray-900" */}
+           
+
+
+            <h3 className="text-xl font-medium leading-normal mb-6">Kies een menu</h3>
 
             <ul className="divide-y divide-gray-200">
-
               {/* 1 */}
-            <div>
+              {/* <div className='grid-cols-2 '></div> */}
+
+              <div className="grid grid-cols-2 gap-4">
+
                 <Link href="/scan" >
 
                   {/* <a href={"/category/" + item.MaterialTypeID + "/" + item.MaterialItemID} className="flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page"> */}
-                  <div href="/asfa" className="cursor-pointer flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page">
+                  <div className="cursor-pointer flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page">
 
                     <li className="py-4 flex">
                       {/* <img src="https://www.svgrepo.com/show/20306/hospital.svg" alt="" class="flex-shrink-0 h-6 w-6 rounded-full"/> */}
@@ -54,16 +62,10 @@ export default function Home({ User }: { User: any }) {
 
                 </Link>
 
-                {/* <SearchIcon /> */}
 
+              {/* 2 */}
 
-
-              </div>
-
-
-{/* 2 */}
-
-<div>
+              <div>
                 <Link href="/search" >
 
                   {/* <a href={"/category/" + item.MaterialTypeID + "/" + item.MaterialItemID} className="flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page"> */}
@@ -84,23 +86,12 @@ export default function Home({ User }: { User: any }) {
                   </div>
 
                 </Link>
-
-
-
-
               </div>
-
-
-
-
-
-
-
               <div>
                 <Link href="/favorites" >
 
                   {/* <a href={"/category/" + item.MaterialTypeID + "/" + item.MaterialItemID} className="flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page"> */}
-                  <div  className="cursor-pointer flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page">
+                  <div className="cursor-pointer flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page">
 
                     <li className="py-4 flex">
                       {/* <img src="https://www.svgrepo.com/show/20306/hospital.svg" alt="" class="flex-shrink-0 h-6 w-6 rounded-full"/> */}
@@ -117,25 +108,9 @@ export default function Home({ User }: { User: any }) {
                   </div>
 
                 </Link>
-
-
-
-
               </div>
-
-
+              </div>
             </ul>
-
-
-
-
-
-
-
-        
-
-
-
 
           </nav>
 

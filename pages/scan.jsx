@@ -89,13 +89,13 @@ export default function Scanpage() {
   return (
     <Layout>
       <div className="md:px-48 mt-5 md:mt-12 mb-5 px-5 ">
-        <h1 className="text-3xl font-bold leading-normal mb-6">
+        {/* <h1 className="text-3xl font-bold leading-normal mb-6">
           Zoeken op nummer
         </h1>
-        <Result />
+        <Result /> */}
 
         <h1 className="text-3xl font-bold leading-normal mb-6">
-          QR-code scannen
+          Code scannen
         </h1>
 
         <button
@@ -389,13 +389,21 @@ class Scan extends Component {
       
       if (confirm(`Weet je zeker dat je de tag met ultimonummer ${JSON.stringify(data)} wilt gaan koppelen?`)) {
         // alert('yeah');
-        const url = "../add-tag/" + parseInt(data)
-        window.location.href = url;
+
+        data = "b2b88201-c6dc-11ec-82fa-0612239f56dc";
+        
+
+
+        
+        const url = "../item/" + String(data);
+        console.log(url);
+        window.location = url;
         // router.push(url)
       }
       // alert(qrValue)
       const ultimoNumber = JSON.stringify(data);
       // setQrValue(ultimoNumber);
+      return;
     }
   };
   handleError = (err) => {

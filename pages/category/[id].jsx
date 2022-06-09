@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Layout from 'components/Layout'
 import { withIronSessionSsr } from 'iron-session/next'
 import { sessionOptions } from 'lib/session'
@@ -9,10 +9,16 @@ import fetchJson from 'lib/fetchJson'
 import moment from "moment";
 import 'moment/locale/nl';
 import Link from 'next/link';
+import { useRouter } from 'next/router'
 
 export default function SsrProfile({
   user, data
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+}) {
+
+  const router = useRouter();
+   
+  // console.log({ basePath: router.basePath}); 
+
   return (
       <>
     <Layout>
@@ -88,7 +94,7 @@ export const getServerSideProps = withIronSessionSsr(async function ({
       res.end()
       return {
         props: {
-          user: { isLoggedIn: false, login: '', sessionID: '' } as User,
+          user: { isLoggedIn: false, login: '', sessionID: '' } ,
         },
       }
     }
@@ -99,8 +105,7 @@ export const getServerSideProps = withIronSessionSsr(async function ({
   
   
       var session = "session=" + req.session.user?.sessionID; //+ cookie.parse(context.req.headers.cookie.userSession);
-  
-          var data = await fetchJson('http://localhost:3000/api/material_types', {
+          var data = await fetchJson(process.env.BASE_URL + 'api/material_types', {
             method: 'POST',
             headers: {         'Content-Type': 'application/json;charset=UTF-8', "Cookie": session, "User-Agent": "PDA"        },
             body: JSON.stringify({"session": req.session.user?.sessionID, "Name": String(query.id)}),
