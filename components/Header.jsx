@@ -19,8 +19,9 @@ export function HeaderNav() {
 
   const navigation = [
     { name: 'Home', href: '/', current: false },
-    { name: 'Toevoegen', href: '/scan', current: false },
+    { name: 'Scannen', href: '/scan', current: false },
     { name: 'Zoeken', href: '/search', current: false },
+    { name: 'Uitgifte', href: '/search', current: false },
   ] 
   // ? user?.isLoggedIn === false : 
 
@@ -28,7 +29,7 @@ export function HeaderNav() {
   const client = "WZU Veluwe";
   const clientUrl = "https://www.wzuveluwe.nl/wp-content/themes/woonzorg-unie-veluwe/images/logo-wzuveluwe.png";
   return (
-    <Disclosure as="nav" className="bg-primary md:px-40 mb-5 px-0 ">
+    <Disclosure as="nav" className="bg-primary md:px-40 s px-0 ">
       {({ open }) => (
         <>
              <Head>

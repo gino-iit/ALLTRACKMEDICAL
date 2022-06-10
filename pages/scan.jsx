@@ -387,7 +387,7 @@ class Scan extends Component {
       });
       // this.QrValue(JSON.stringify(data))
       
-      if (confirm(`Weet je zeker dat je de tag met ultimonummer ${JSON.stringify(data)} wilt gaan koppelen?`)) {
+      if (confirm(`Weet je zeker dat je de tag met ID ${JSON.stringify(data)} wilt gaan zoeken?`)) {
         // alert('yeah');
 
         data = "b2b88201-c6dc-11ec-82fa-0612239f56dc";
@@ -398,6 +398,8 @@ class Scan extends Component {
         const url = "../item/" + String(data);
         console.log(url);
         window.location = url;
+        return;
+
         // router.push(url)
       }
       // alert(qrValue)

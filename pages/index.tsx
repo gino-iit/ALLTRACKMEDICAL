@@ -1,13 +1,14 @@
 import Layout from 'components/Layout'
 import Image from 'next/image'
 import React from "react";
-import { SearchIcon, CameraIcon } from '@heroicons/react/outline'
+import { SearchIcon, CameraIcon, BookmarkAltIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import useUser from 'lib/useUser';
 import * as cookie from 'cookie'
 import redis from '../lib/connections/redis';
 import Search from './search';
 import Result from 'components/Result';
+import Favorites from 'components/Favorites';
 
 // import '@headlessui/react'
 
@@ -54,7 +55,7 @@ export default function Home({ User }: { User: any }) {
 
                       <div className="ml-3">
                         <p className="text-sm group-hover:text-white font-medium text-gray-900">Scannen </p>
-                        <p className="text-sm group-hover:text-white font-light text-gray-500"> Voeg een asset toe</p>
+                        <p className="text-sm group-hover:text-white font-light text-gray-500"> Scan en vind een hulpmiddel</p>
                       </div>
                     </li>
 
@@ -87,8 +88,15 @@ export default function Home({ User }: { User: any }) {
 
                 </Link>
               </div>
+
+
+
+
+              {/* 3 */}
+
+
               <div>
-                <Link href="/favorites" >
+                <Link href="/uitgifte" >
 
                   {/* <a href={"/category/" + item.MaterialTypeID + "/" + item.MaterialItemID} className="flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page"> */}
                   <div className="cursor-pointer flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page">
@@ -97,11 +105,11 @@ export default function Home({ User }: { User: any }) {
                       {/* <img src="https://www.svgrepo.com/show/20306/hospital.svg" alt="" class="flex-shrink-0 h-6 w-6 rounded-full"/> */}
 
                       {/* <img className="h-8 w-8 m-auto my-auto" src="https://www.svgrepo.com/show/20306/hospital.svg" alt=""/> */}
-                      <img src="https://www.svgrepo.com/show/5127/star.svg" className="h-8 w-8 m-auto my-auto" />
+                      <BookmarkAltIcon className="h-8 w-8 m-auto my-auto" />
 
                       <div className="ml-3">
-                        <p className="text-sm group-hover:text-white font-medium text-gray-900">Favorieten </p>
-                        <p className="text-sm group-hover:text-white font-light text-gray-500"> Toegang tot je opgeslagen items</p>
+                        <p className="text-sm group-hover:text-white font-medium text-gray-900">Uitgifte </p>
+                        <p className="text-sm group-hover:text-white font-light text-gray-500"> Wijs locatie toe aan hulpmiddel</p>
                       </div>
                     </li>
 
@@ -109,8 +117,14 @@ export default function Home({ User }: { User: any }) {
 
                 </Link>
               </div>
+
+
+           
               </div>
             </ul>
+
+
+            <Favorites/>
 
           </nav>
 

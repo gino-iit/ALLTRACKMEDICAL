@@ -3,7 +3,7 @@ import Layout from 'components/Layout'
 import { withIronSessionSsr } from 'iron-session/next'
 import { sessionOptions } from 'lib/session'
 import { User } from 'pages/api/user'
-
+import BackButton from '../../components/BackButton'
 import { InferGetServerSidePropsType } from 'next'
 import fetchJson from 'lib/fetchJson'
 import moment from "moment";
@@ -17,8 +17,10 @@ export default function SsrProfile({
       <>
     <Layout>
 
+    <BackButton id={item}/>
 
 <div className="md:px-48 mt-5 md:mt-12 mb-5 px-5 ">
+
 <link rel="stylesheet" href="https://tailwindui.com/css/components-v2.css"/>
 
     <h1 className="text-3xl font-bold leading-normal">{item && <span>{item.MaterialTypeName}</span>}</h1>
