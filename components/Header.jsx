@@ -21,7 +21,7 @@ export function HeaderNav() {
     { name: 'Home', href: '/', current: false },
     { name: 'Scannen', href: '/scan', current: false },
     { name: 'Zoeken', href: '/search', current: false },
-    { name: 'Uitgifte', href: '/search', current: false },
+    { name: 'Uitgifte', href: '/uitgifte', current: false },
   ] 
   // ? user?.isLoggedIn === false : 
 

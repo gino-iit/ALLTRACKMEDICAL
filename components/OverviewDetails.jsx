@@ -36,7 +36,7 @@ var location =  this.props.LocationName != "Onbekend" ? this.props.LocationName 
 return (
         <div className="bg-white shadow overflow-hidden sm:rounded-lg border rounded-xl border-gray-200 mb-8">
             <div className="px-4 pt-5 sm:px-6 flex flex-wrap">
-                <h3 className="text-lg leading-6 font-medium text-gray-900 ">Gegevens</h3>
+                <h3 className="text-lg leading-6 font-medium text-gray-900 ">Locatie {this.props.LocationName}</h3>
                 &nbsp;&nbsp;
                 <InfoIcon id={this.props.Name} LocationName={location} MaterialTypeName={this.props.MaterialTypeID}/> 
 
@@ -51,7 +51,7 @@ return (
                 <dl>
                 
                     <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt className="text-sm font-medium text-gray-500">Ultimo nummer</dt>
+                        <dt className="text-sm font-medium text-gray-500">Naam materiaal</dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{this.props.Name}</dd>
                     </div>
                     <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -62,14 +62,14 @@ return (
                         <dt className="text-sm font-medium text-gray-500">Laatst waargenomen locatie</dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{this.props.LocationName}</dd>
                     </div>                    
-                    <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    {/* <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt className="text-sm font-medium text-gray-500">Laatste uitgifte</dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{moment(this.props.LastModified).locale('nl').startOf('day').fromNow()}</dd>
-                    </div>
-                    <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    </div> */}
+                    {/* <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt className="text-sm font-medium text-gray-500">RSSI</dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{this.props.RSSI}</dd>
-                    </div>
+                    </div> */}
                     
                 </dl>
             </div>

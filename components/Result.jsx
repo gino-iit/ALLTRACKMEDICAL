@@ -32,7 +32,7 @@ function deleteAllCookies() {
       ultimo: ultimo,
       sessionid: sessionid,
     });
-    console.log("Posted to API");
+
     return JSON.stringify(data);
   }
   
@@ -157,10 +157,7 @@ export default function Results(props) {
       }
       if (searchResult) {
         if (resultDetails != undefined) {
-          // alert("Aihnoo");
           // alert(resultDetails);
-
-
           var parsed = JSON.parse(resultDetails);
           // alert(parsed.Name)
           // alert(parsed.MaterialTypeID);
@@ -305,10 +302,11 @@ export default function Results(props) {
 
 
 
-<li class="transition ease-in-out text-gray-900 hover:bg-primary hover:text-white hover:font-extrabold cursor-pointer select-none relative py-2 pl-3 pr-9" id="listbox-option-0" role="option">
+<Link href={"/category/" + x.MaterialTypeID}>
+  <li class="transition ease-in-out text-gray-900 hover:bg-primary hover:text-white hover:font-extrabold cursor-pointer select-none relative py-2 pl-3 pr-9" id="listbox-option-0" role="option">
 <div class="flex items-center">
   <img src="https://www.svgrepo.com/show/20306/hospital.svg" alt="" class="flex-shrink-0 h-6 w-6 rounded-full"/>
-  <Link href={"/category/" + x.MaterialTypeID}><span  class="font-normal ml-3 block truncate"> {x.Name} </span></Link>
+  <span  class="font-normal ml-3 block truncate"> {x.Name} </span>
 </div>
 
 
@@ -320,6 +318,7 @@ export default function Results(props) {
   </svg>
 </span>
 </li>
+</Link>
 )
 :
 <>
@@ -452,7 +451,7 @@ export default function Results(props) {
       // });
 
 
-      console.log(res);
+
     // Pass data to the page via props
     return { props: { res } }
 

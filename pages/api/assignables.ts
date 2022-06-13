@@ -5,20 +5,26 @@ import useUser from 'lib/useUser';
 
 export default async function handler(req: any, resp: any) {
 
-    var sessionid = req.body.session;
-    // const apiUrl = `${process.env.API_URL}connect/pda/get-item-info`;
-    const apiUrl = `${process.env.API_URL}material-items/get`;
+    var sessionId = req.body.sessionId;
     
-    const res = await fetch(apiUrl, {
+
+    const res = await fetch(`${process.env.API_URL}connect/pda/material-items-in-stock`, {
         method: 'POST', 
         headers: {
-        'Content-Type': 'application/json;charset=UTF-8', "Cookie": String("session=" + sessionid), "User-Agent": "PDA"
+        'Content-Type': 'application/json;charset=UTF-8', "Cookie": String("session=" + sessionId), "User-Agent": "PDA"
     },
-        body: JSON.stringify({ "Name": req.body.Name}) // body data type must match "Content-Type" header
+        body: JSON.stringify({ "IMEI": "02:00:00:00:00:00" }) // body data type must match "Content-Type" header
         });
+  
 
+        // var response = await res.json()
         var response = await res.json()
-        console.log(JSON.stringify(response));      
+
+
+            console.log(JSON.stringify(response));
+    
+
+
         resp.status(200).json(response);
 
 }

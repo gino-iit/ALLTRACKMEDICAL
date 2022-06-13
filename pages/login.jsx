@@ -21,6 +21,12 @@ export default function Login() {
     redirectTo: '/',
     redirectIfFound: true,
   })
+  console.log(mutateUser);
+
+  console.log('cookie');
+  console.log(cookie);
+
+
 
   const [errorMsg, setErrorMsg] = useState('')
   const formik = useFormik({
@@ -295,10 +301,11 @@ function alertUser(errorMsg) {
 
 
 
-/* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react'
-import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
+// /* This example requires Tailwind CSS v2.0+ */
+// import { Fragment } from 'react'
+// import { Listbox, Transition } from '@headlessui/react'
+// import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
+// import { getServerSideProps } from 'pages'
 
 
 
@@ -399,9 +406,11 @@ function classNames(...classes) {
 
 
 
-
-
-
+export async function getServerSideProps(context) {
+  return {
+    props: {}, // will be passed to the page component as props
+  }
+}
 
 
 

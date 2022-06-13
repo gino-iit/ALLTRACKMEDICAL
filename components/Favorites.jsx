@@ -53,6 +53,10 @@ export default function Favorites (props){
 
     </Link>
 
+
+
+
+
   
   )
   
@@ -65,6 +69,11 @@ export default function Favorites (props){
     )
     
 }
+
+
+
+
+
 
 
 

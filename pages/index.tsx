@@ -42,45 +42,74 @@ export default function Home({ User }: { User: any }) {
 
               <div className="grid grid-cols-2 gap-4">
 
+              
+
+
+              {/* 2 */}
+
+              <div>
                 <Link href="/scan" >
 
                   {/* <a href={"/category/" + item.MaterialTypeID + "/" + item.MaterialItemID} className="flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page"> */}
-                  <div className="cursor-pointer flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page">
+                  <div className="cursor-pointer flex  border mb-2 bg-white px-6  border-gray-200 group text-gray-900  items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page">
 
-                    <li className="py-4 flex">
+                    <li className="py-4 md:flex md:text-left text-center">
                       {/* <img src="https://www.svgrepo.com/show/20306/hospital.svg" alt="" class="flex-shrink-0 h-6 w-6 rounded-full"/> */}
 
                       {/* <img className="h-8 w-8 m-auto my-auto" src="https://www.svgrepo.com/show/20306/hospital.svg" alt=""/> */}
                       <CameraIcon className="h-8 w-8 m-auto my-auto" />
 
-                      <div className="ml-3">
+                      <div className="ml-0 md:ml-3 mt-2 md:mt-0">
                         <p className="text-sm group-hover:text-white font-medium text-gray-900">Scannen </p>
-                        <p className="text-sm group-hover:text-white font-light text-gray-500"> Scan en vind een hulpmiddel</p>
+                        <p className="text-sm group-hover:text-white font-light text-gray-500"> Scan en vind een hulpmiddel hulpmiddel</p>
                       </div>
                     </li>
 
                   </div>
 
                 </Link>
+              </div>
 
-
-              {/* 2 */}
 
               <div>
                 <Link href="/search" >
 
                   {/* <a href={"/category/" + item.MaterialTypeID + "/" + item.MaterialItemID} className="flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page"> */}
-                  <div className="cursor-pointer flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page">
+                  <div className="cursor-pointer flex  border mb-2 bg-white px-6  border-gray-200 group text-gray-900  items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page">
 
-                    <li className="py-4 flex">
+                    <li className="py-4 md:flex md:text-left text-center">
                       {/* <img src="https://www.svgrepo.com/show/20306/hospital.svg" alt="" class="flex-shrink-0 h-6 w-6 rounded-full"/> */}
 
                       {/* <img className="h-8 w-8 m-auto my-auto" src="https://www.svgrepo.com/show/20306/hospital.svg" alt=""/> */}
                       <SearchIcon className="h-8 w-8 m-auto my-auto" />
 
-                      <div className="ml-3">
+                      <div className="ml-0 md:ml-3 mt-2 md:mt-0">
                         <p className="text-sm group-hover:text-white font-medium text-gray-900">Zoeken </p>
                         <p className="text-sm group-hover:text-white font-light text-gray-500"> Zoek direct naar je hulpmiddel</p>
+                      </div>
+                    </li>
+
+                  </div>
+
+                </Link>
+              </div>
+
+
+              <div>
+                <Link href="/uitgifte" >
+
+                  {/* <a href={"/category/" + item.MaterialTypeID + "/" + item.MaterialItemID} className="flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page"> */}
+                  <div className="cursor-pointer flex  border mb-2 bg-white px-6  border-gray-200 group text-gray-900  items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page">
+
+                    <li className="py-4 md:flex md:text-left text-center">
+                      {/* <img src="https://www.svgrepo.com/show/20306/hospital.svg" alt="" class="flex-shrink-0 h-6 w-6 rounded-full"/> */}
+
+                      {/* <img className="h-8 w-8 m-auto my-auto" src="https://www.svgrepo.com/show/20306/hospital.svg" alt=""/> */}
+                      <BookmarkAltIcon className="h-8 w-8 m-auto my-auto" />
+
+                      <div className="ml-0 md:ml-3 mt-2 md:mt-0">
+                        <p className="text-sm group-hover:text-white font-medium text-gray-900">Uitgifte </p>
+                        <p className="text-sm group-hover:text-white font-light text-gray-500"> Wijs locatie toe aan hulpmiddel</p>
                       </div>
                     </li>
 
@@ -95,28 +124,7 @@ export default function Home({ User }: { User: any }) {
               {/* 3 */}
 
 
-              <div>
-                <Link href="/uitgifte" >
-
-                  {/* <a href={"/category/" + item.MaterialTypeID + "/" + item.MaterialItemID} className="flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page"> */}
-                  <div className="cursor-pointer flex border mb-2 bg-white px-6  border-gray-200 group text-gray-900 flex items-center px-3  text-sm font-medium rounded-md hover:bg-primary shadow-sm hover:border-primary transition duration-300 ease-in-out" aria-current="page">
-
-                    <li className="py-4 flex">
-                      {/* <img src="https://www.svgrepo.com/show/20306/hospital.svg" alt="" class="flex-shrink-0 h-6 w-6 rounded-full"/> */}
-
-                      {/* <img className="h-8 w-8 m-auto my-auto" src="https://www.svgrepo.com/show/20306/hospital.svg" alt=""/> */}
-                      <BookmarkAltIcon className="h-8 w-8 m-auto my-auto" />
-
-                      <div className="ml-3">
-                        <p className="text-sm group-hover:text-white font-medium text-gray-900">Uitgifte </p>
-                        <p className="text-sm group-hover:text-white font-light text-gray-500"> Wijs locatie toe aan hulpmiddel</p>
-                      </div>
-                    </li>
-
-                  </div>
-
-                </Link>
-              </div>
+  
 
 
            

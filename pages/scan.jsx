@@ -6,7 +6,7 @@ import Alert from "../components/Alert";
 import { Offline } from "react-detect-offline";
 import { useRouter } from "next/router";
 import { Dialog, Transition } from "@headlessui/react";
-
+import Link from "next/link";
 import "@heroicons/react/outline";
 import InfoIcon from "../components/InfoIcon";
 import { PaperClipIcon } from "@heroicons/react/solid";
@@ -22,6 +22,7 @@ import { Html5QrcodeScanner } from "html5-qrcode";
 // import Blob from 'blob'
 
 import Result from "components/Result";
+import { XIcon } from "@heroicons/react/outline";
 
 function deleteAllCookies() {
   var cookies = document.cookie.split(";");
@@ -105,6 +106,7 @@ export default function Scanpage() {
           Scannen
         </button>
 
+
         <Transition appear show={isOpen} as={Fragment}>
           <Dialog
             as="div"
@@ -149,25 +151,40 @@ export default function Scanpage() {
                   >
                     Scan de QR-code
                   </Dialog.Title>
+
+<button                       onClick={closeModal}
+>
+<XIcon className="text-gray-400 right-5 h-8 top-6 absolute" />
+</button>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
                       {showCamera && (
                         <div className="mt-12 rounded-lg">
                           <Scan />
+                          {/* {console.log(Scan.result)} */}
                         </div>
                       )}{" "}
                     </p>
                   </div>
 
-                  <div className="mt-4">
-                    <button
+                  {/* <div className="mt-4">
+                  <button
                       type="button"
                       className="inline-flex justify-center px-4 py-2 text-sm font-medium text-primary bg-primary-lightest border border-transparent rounded-md hover:primary-light focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:primary"
                       onClick={closeModal}
                     >
                       Terug
                     </button>
-                  </div>
+                    
+{Scan.result && (
+                    <button 
+                      type="button"
+                      className="ml-4 inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-primary border border-transparent rounded-md hover:primary-light focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:primary"
+                    >
+                      Ga naar item
+                    </button>
+)}
+                  </div> */}
                 </div>
               </Transition.Child>
             </div>
@@ -378,32 +395,42 @@ class Scan extends Component {
 
   state = {
     result: "Nog geen QR-code gescand",
+    scanned: false,
   };
 
   handleScan = (data) => {
     if (data) {
       this.setState({
         result: data,
+        scanned: true,
       });
       // this.QrValue(JSON.stringify(data))
       
-      if (confirm(`Weet je zeker dat je de tag met ID ${JSON.stringify(data)} wilt gaan zoeken?`)) {
+      if (confirm(`Weet je zeker dat je de asset met ID ${JSON.stringify(data)} wilt gaan zoeken?`)) {
         // alert('yeah');
 
-        data = "b2b88201-c6dc-11ec-82fa-0612239f56dc";
+        // data = "b2b88201-c6dc-11ec-82fa-0612239f56dc";
         
 
 
         
-        const url = "../item/" + String(data);
-        console.log(url);
-        window.location = url;
-        return;
+        var url = "item/" + String(data);
+        this.setState({
+          result: url,
+        });
+        // console.log(url);
+        // window.location = url;
+
 
         // router.push(url)
+      } else {
+        this.setState({
+          result: "Nog geen QR-code gescand",
+          scanned: false,
+              });
       }
       // alert(qrValue)
-      const ultimoNumber = JSON.stringify(data);
+      const ID = JSON.stringify(data);
       // setQrValue(ultimoNumber);
       return;
     }
@@ -411,7 +438,13 @@ class Scan extends Component {
   handleError = (err) => {
     console.error(err);
   };
+
+
+
   render() {
+
+ 
+
     return (
       <div>
         <QrReader
@@ -419,7 +452,40 @@ class Scan extends Component {
           onError={this.handleError}
           onScan={this.handleScan}
         />
-        <p>{this.state.result}</p>
+
+{this.state.scanned === true && 
+
+        <p>Materiaal ID: {this.state.result}</p>
+}
+
+
+
+    <div className="mt-2">
+    {this.state.scanned === true && 
+<div>
+<button
+                type="button"
+                onClick={() =>       this.setState({
+                  result: "Nog geen QR-code gescand",
+                  scanned: false,
+                      })}
+                className="inline-flex justify-center px-4 py-2 text-sm font-medium text-primary bg-primary-lightest border border-transparent rounded-md hover:primary-light focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:primary"
+              >
+                Opnieuw scannen
+              </button>             
+              
+              <Link
+              className="ml-4"
+                 href={"item/" + this.state.result} 
+               >
+                 <button                  className="ml-4 inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-primary border border-transparent rounded-md hover:primary-light focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:primary"
+>Ga naar item</button>
+               </Link>
+</div>
+
+
+}
+    </div>
       </div>
     );
   }
