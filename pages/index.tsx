@@ -61,7 +61,7 @@ export default function Home({ User }: { User: any }) {
 
                       <div className="ml-0 md:ml-3 mt-2 md:mt-0">
                         <p className="text-sm group-hover:text-white font-medium text-gray-900">Scannen </p>
-                        <p className="text-sm group-hover:text-white font-light text-gray-500"> Scan en vind een hulpmiddel hulpmiddel</p>
+                        <p className="text-sm group-hover:text-white font-light text-gray-500"> Scan en vind een hulpmiddel</p>
                       </div>
                     </li>
 
